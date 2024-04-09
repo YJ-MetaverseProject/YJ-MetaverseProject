@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 7499155942773710503}
   - component: {fileID: 4866766692632240935}
   - component: {fileID: 8444362332976624298}
+  - component: {fileID: 5275526705441934353}
   m_Layer: 0
   m_Name: man
   m_TagString: Untagged
@@ -112,8 +113,6 @@ MonoBehaviour:
   obj_Rotate_Horizontal: {fileID: 697785503197186243}
   obj_Rotate_Vertical: {fileID: 3746447047682781521}
   obj_Body: {fileID: 2374430763718696840}
-  obj_Cam_First: {fileID: 0}
-  obj_Cam_Quarter: {fileID: 0}
 --- !u!114 &7499155942773710503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +183,21 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!114 &5275526705441934353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248822274323737384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208f11f3b32b9a44b874186976277568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sesitivity: 500
+  rotationX: 0
+  rotationY: 0
 --- !u!1 &371440824650061049
 GameObject:
   m_ObjectHideFlags: 0

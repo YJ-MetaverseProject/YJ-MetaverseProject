@@ -19,23 +19,11 @@ public class Character_Controller : MonoBehaviour
     public GameObject obj_Rotate_Horizontal;
     public GameObject obj_Rotate_Vertical;
     public GameObject obj_Body;
-    public GameObject obj_Cam_First, obj_Cam_Quarter;
 
     // Start is called before the first frame update
     private void Start()
     {
-        if (GetComponent<PhotonView>().IsMine)
-        {
-            obj_Cam_First.SetActive(false);
-            obj_Cam_Quarter.SetActive(true);
-            this.gameObject.name += "(LocalPlayer)";
-        }
-        else
-        {
-            obj_Cam_First.SetActive(false);
-            obj_Cam_Quarter.SetActive(false);
-            this.gameObject.name += "(OtherPlayer)";
-        }
+
     }
 
     // Update is called once per frame
