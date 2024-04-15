@@ -114,6 +114,13 @@ MonoBehaviour:
   obj_Body: {fileID: 2374430763718696840}
   obj_Cam_First: {fileID: 0}
   obj_Cam_Quarter: {fileID: 0}
+  radius: 2
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
+  colliders: []
+  OnText: {fileID: 0}
+  nearObj: {fileID: 0}
 --- !u!114 &7499155942773710503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2912,7 +2919,7 @@ GameObject:
   - component: {fileID: 1556496519435638562}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

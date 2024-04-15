@@ -25,6 +25,7 @@ public class Character_Controller : MonoBehaviour
     public LayerMask layer;
     public Collider[] colliders;
     public GameObject OnText;
+    public Collider nearObj;
 
 
     // Start is called before the first frame update
@@ -44,6 +45,31 @@ public class Character_Controller : MonoBehaviour
         }
     }*/
     // Update is called once per frame
+    private void Update()
+    {
+        Vector3 centerPosition = Camera.main.transform.position + Camera.main.transform.forward * radius;
+        colliders = Physics.OverlapSphere(centerPosition, radius, layer);
+        Debug.Log("Number of colliders detected: " + colliders.Length);
+
+        if (colliders.Length > 0)
+        {
+            float short_distance = Vector3.Distance(centerPosition, colliders[0].transform.position);
+            foreach (Collider col in colliders)
+            {
+                float short_distance2 = Vector3.Distance(centerPosition, col.transform.position);
+                if (short_distance > short_distance2)
+                {
+                    short_distance = short_distance2;
+                    nearObj = col;
+                }
+            }
+            OnText.SetActive(true);
+        }
+        else
+        {
+            OnText.SetActive(false);
+        }
+    }
     private void LateUpdate()
     {
         if (GetComponent<PhotonView>().IsMine)
@@ -143,20 +169,7 @@ public class Character_Controller : MonoBehaviour
                 //obj_Rotate_Horizontal.transform.eulerAngles += new Vector3(0, rot_y, 0) * f_RotateSpeed;
                 transform.eulerAngles += new Vector3(0, rot_y, 0) * f_RotateSpeed;
             }
-            colliders = Physics.OverlapSphere(transform.position, radius, layer);
-
-        // 범위 안에 오브젝트가 들어오면 상호작용 문구를 출력
-            if (colliders.Length > 0)
-        {
-            // 상호작용할 수 있는 오브젝트가 범위 안에 있을 때 UI를 활성화
-            OnText.SetActive(true);
-        }
-        else
-        {
-            // 범위 안에 오브젝트가 없을 때 UI를 비활성화
-            OnText.SetActive(false);
-        }
-        }
+        }    
     }
      private void OnDrawGizmos()
     {
