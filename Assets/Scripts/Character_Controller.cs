@@ -67,6 +67,7 @@ public class Character_Controller : MonoBehaviour
                 }
             }
             OnText.SetActive(true);
+            if(nearObj.CompareTag("AP") && Input.GetKeyDown(KeyCode.E)) nearObj.GetComponent<AbnomalPhenomenon>().APReader();
         }
         else
         {
