@@ -22,6 +22,9 @@ public class Character_Controller : MonoBehaviour
     public GameObject obj_Body;
     public GameObject obj_Cam_First, obj_Cam_Quarter;
     public float radius = 0f;
+    public float sesitivity = 300f;
+    public float rotationX;
+    public float rotationY;
     public LayerMask layer;
     public Collider[] colliders;
     public GameObject OnText;
@@ -162,13 +165,21 @@ public class Character_Controller : MonoBehaviour
                 m_Animator.SetTrigger("Jump");
             }
 
-            if (Input.GetMouseButton(1))
+            float mouseMoveX = Input.GetAxis("Mouse X");
+            float mouseMoveY = Input.GetAxis("Mouse Y");
+            rotationY += mouseMoveX * sesitivity * Time.deltaTime;
+            rotationX += mouseMoveY * sesitivity * Time.deltaTime;
+
+            if (rotationX > 35f)
             {
-                float rot_x = Input.GetAxis("Mouse Y");
-                float rot_y = Input.GetAxis("Mouse X");
-                //obj_Rotate_Horizontal.transform.eulerAngles += new Vector3(0, rot_y, 0) * f_RotateSpeed;
-                transform.eulerAngles += new Vector3(0, rot_y, 0) * f_RotateSpeed;
+                rotationX = 35f;
             }
+            if (rotationX < -30f)
+            {
+                rotationX = -30f;
+            }
+
+            transform.eulerAngles = new Vector3(-rotationX, rotationY, 0);
         }    
     }
      private void OnDrawGizmos()
