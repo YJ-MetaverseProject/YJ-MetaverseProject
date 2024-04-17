@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     public const int TIME_TICK = 5;
     public const int AP_LIMIT = 10;
-    public const int AP_DELAY_TICK = 6;
+    public const int AP_DELAY_TICK = 1;
     // public const int AP_AMOUNT = 10; // 이거 왜 넣었지?
 
     public AbnomalPhenomenon[] apObjs;
@@ -39,16 +40,15 @@ public class GameManager : MonoBehaviour
         while(isGameStart)
         {
             yield return new WaitForSeconds(TIME_TICK);
-            yield return new WaitUntil(() => !isGamePause);
+            // yield return new WaitUntil(() => !isGamePause);
             TickUpdate();
-            Debug.Log(aliveAPCount);
         }
     }
 
     public void GameSet()
     {
-        StartCoroutine(TimeTick());
         isGameStart = true;
+        StartCoroutine(TimeTick());
         while(AP_LIMIT/2 > aliveAPCount)
         {
             var temp = UnityEngine.Random.Range(0, apObjs.Length);
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void TickUpdate()
     {
-        if(apDelayTick++ < AP_DELAY_TICK)
+        if(apDelayTick++ < AP_DELAY_TICK && aliveAPCount < AP_LIMIT)
         {
             apDelayTick = 0;
             while(!APSet(UnityEngine.Random.Range(0, apObjs.Length)));
