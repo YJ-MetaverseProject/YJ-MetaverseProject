@@ -20,58 +20,49 @@ public class Character_Controller : MonoBehaviour
     public GameObject obj_Rotate_Horizontal;
     public GameObject obj_Rotate_Vertical;
     public GameObject obj_Body;
+    public GameObject obj_Cam_First, obj_Cam_Quarter;
     public float radius = 0f;
+    public float sesitivity = 300f;
+    public float rotationX;
+    public float rotationY;
     public LayerMask layer;
     public Collider[] colliders;
     public GameObject OnText;
     public Collider nearObj;
-    public float sensitivity = 300f;
-    public float rotationX;
-    public float rotationY;
-    private Rigidbody rb;
+
 
     // Start is called before the first frame update
-    void Start()
+    /*private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-    }
-
+        if (GetComponent<PhotonView>().IsMine)
+        {
+            obj_Cam_First.SetActive(false);
+            obj_Cam_Quarter.SetActive(true);
+            this.gameObject.name += "(LocalPlayer)";
+        }
+        else
+        {
+            obj_Cam_First.SetActive(false);
+            obj_Cam_Quarter.SetActive(false);
+            this.gameObject.name += "(OtherPlayer)";
+        }
+    }*/
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        // ∏∂øÏΩ∫ ¿‘∑¬¿ª ¿ÃøÎ«— ƒ≥∏Ø≈Õ »∏¿¸
-        float mouseMoveX = Input.GetAxis("Mouse X");
-        float mouseMoveY = Input.GetAxis("Mouse Y");
-        rotationY += mouseMoveX * sensitivity * Time.deltaTime;
-        rotationX += mouseMoveY * sensitivity * Time.deltaTime;
-
-        if (rotationX > 35f)
-        {
-            rotationX = 35f;
-        }
-        if (rotationX < -30f)
-        {
-            rotationX = -30f;
-        }
-
-        transform.eulerAngles = new Vector3(-rotationX, rotationY, 0);
-
         Vector3 centerPosition = Camera.main.transform.position + Camera.main.transform.forward * radius;
         colliders = Physics.OverlapSphere(centerPosition, radius, layer);
         Debug.Log("Number of colliders detected: " + colliders.Length);
 
-        // √ ±‚»≠
-        nearObj = null;
-
         if (colliders.Length > 0)
         {
-            float shortestDistance = float.MaxValue; // √÷¥Î∞™¿∏∑Œ √ ±‚»≠
+            float short_distance = Vector3.Distance(centerPosition, colliders[0].transform.position);
             foreach (Collider col in colliders)
             {
-                float distance = Vector3.Distance(centerPosition, col.transform.position);
-                if (distance < shortestDistance)
+                float short_distance2 = Vector3.Distance(centerPosition, col.transform.position);
+                if (short_distance > short_distance2)
                 {
-                    shortestDistance = distance;
+                    short_distance = short_distance2;
                     nearObj = col;
                 }
             }
@@ -79,11 +70,9 @@ public class Character_Controller : MonoBehaviour
         }
         else
         {
-            nearObj = null;
             OnText.SetActive(false);
         }
     }
-
     private void LateUpdate()
     {
         if (GetComponent<PhotonView>().IsMine)
@@ -91,22 +80,36 @@ public class Character_Controller : MonoBehaviour
             float pos_x = Input.GetAxis("Horizontal");
             float pos_z = Input.GetAxis("Vertical");
 
+            //ÔøΩﬁ∏ÔøΩÔøΩÔøΩ ON&OFF
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                m_Animator.SetBool("Run", true);
+            }
+            else
+            {
+                m_Animator.SetBool("Run", false);
+            }
+
+            //ÔøΩ»±ÔøΩ ON&OFF ÔøΩÔøΩ ƒ≥ÔøΩÔøΩÔøΩÔøΩ ÔøΩÃµÔøΩ
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
-                // Debug.Log(new Vector2(pos_x, pos_z));
+                //Debug.Log(new Vector2(pos_x, pos_z));
                 if (pos_x > 0)
                 {
                     if (pos_z > 0)
                     {
                         obj_Body.transform.localEulerAngles = new Vector3(0f, 45f, 0f);
+                        //transform.Rotate(new Vector3(0f, 45f, 0f));
                     }
                     else if (pos_z < 0)
                     {
                         obj_Body.transform.localEulerAngles = new Vector3(0f, 135f, 0f);
+                        //transform.Rotate(new Vector3(0f, 135f, 0f));
                     }
                     else
                     {
                         obj_Body.transform.localEulerAngles = new Vector3(0f, 90f, 0f);
+                        //transform.Rotate(new Vector3(0f, 90f, 0f));
                     }
                 }
                 else if (pos_x < 0)
@@ -114,14 +117,17 @@ public class Character_Controller : MonoBehaviour
                     if (pos_z > 0)
                     {
                         obj_Body.transform.localEulerAngles = new Vector3(0f, -45f, 0f);
+                        //transform.Rotate(new Vector3(0f, -45f, 0f));
                     }
                     else if (pos_z < 0)
                     {
                         obj_Body.transform.localEulerAngles = new Vector3(0f, -135f, 0f);
+                        //transform.Rotate(new Vector3(0f, -135f, 0f));
                     }
                     else
                     {
                         obj_Body.transform.localEulerAngles = new Vector3(0f, 270f, 0f);
+                        //transform.Rotate(new Vector3(0f, 270f, 0f));
                     }
                 }
                 else
@@ -129,26 +135,54 @@ public class Character_Controller : MonoBehaviour
                     if (pos_z > 0)
                     {
                         obj_Body.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+                        //transform.Rotate(new Vector3(0f, 0f, 0f));
                     }
                     else if (pos_z < 0)
                     {
                         obj_Body.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+                        //transform.Rotate(new Vector3(0f, 45f, 0f));
                     }
                 }
 
                 m_Animator.SetBool("Walk", true);
-                // Rigidbody∏¶ ªÁøÎ«œø© ¿Ãµø
-                Vector3 movement = new Vector3(pos_x, 0, pos_z) * f_MoveSpeed * Time.deltaTime;
-                rb.MovePosition(rb.position + transform.TransformDirection(movement));
+                if (m_Animator.GetBool("Run"))
+                {
+                    transform.Translate(new Vector3(pos_x, 0, pos_z) * Time.deltaTime * f_MoveSpeed * f_RunSpeed);
+                }
+                else
+                {
+                    //transform.position += new Vector3(pos_x, 0, pos_z) * Time.deltaTime * f_MoveSpeed;
+                    transform.Translate(new Vector3(pos_x, 0, pos_z) * Time.deltaTime * f_MoveSpeed);
+                }
             }
             else
             {
                 m_Animator.SetBool("Walk", false);
             }
-        }
-    }
 
-    private void OnDrawGizmos()
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                m_Animator.SetTrigger("Jump");
+            }
+
+            float mouseMoveX = Input.GetAxis("Mouse X");
+            float mouseMoveY = Input.GetAxis("Mouse Y");
+            rotationY += mouseMoveX * sesitivity * Time.deltaTime;
+            rotationX += mouseMoveY * sesitivity * Time.deltaTime;
+
+            if (rotationX > 35f)
+            {
+                rotationX = 35f;
+            }
+            if (rotationX < -30f)
+            {
+                rotationX = -30f;
+            }
+
+            transform.eulerAngles = new Vector3(-rotationX, rotationY, 0);
+        }    
+    }
+     private void OnDrawGizmos()
     {
         Vector3 desiredPosition = new Vector3(0.0f, 1.0f, 0.0f);
         Gizmos.color = Color.red;
