@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public static bool isGameStart;
     public static bool isGamePause;
 
-    private int aliveAPCount;
+    private int aliveAPCount; // 탈락카운트 값
     private int apDelayTick;
 
     private void Awake()
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     public void Start() => GameSet();
 
-    private IEnumerator TimeTick()
+    private IEnumerator TimeTick() //틱탕 오브젝트 바뀌는기능
     {
         while(isGameStart)
         {
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
     }
 
     // false : 활성화 실패, true : 활성화 성공
-    private bool APSet(int idx)
+    private bool APSet(int idx) // 이상현상이 
     {
         if(APList[apObjs[idx]]) return false;
         APList[apObjs[idx]] = true;

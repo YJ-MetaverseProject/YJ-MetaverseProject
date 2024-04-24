@@ -45,13 +45,13 @@ public class Character_Controller : MonoBehaviour
         rotationY += mouseMoveX * sensitivity * Time.deltaTime;
         rotationX += mouseMoveY * sensitivity * Time.deltaTime;
 
-        if (rotationX > 35f)
+        if (rotationX > 50f)
         {
-            rotationX = 35f;
+            rotationX = 50f;
         }
-        if (rotationX < -30f)
+        if (rotationX < -50f)
         {
-            rotationX = -30f;
+            rotationX = -50f;
         }
 
         transform.eulerAngles = new Vector3(-rotationX, rotationY, 0);
