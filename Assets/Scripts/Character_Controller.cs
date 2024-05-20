@@ -52,7 +52,6 @@ public class Character_Controller : MonoBehaviour
     {
         Vector3 centerPosition = cameraTransform.position + cameraTransform.forward * radius; // 카메라 방향으로 수정
         colliders = Physics.OverlapSphere(centerPosition, radius, layer);
-        Debug.Log("Number of colliders detected: " + colliders.Length);
 
         if (colliders.Length > 0)
         {
