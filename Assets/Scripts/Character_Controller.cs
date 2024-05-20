@@ -125,7 +125,8 @@ public class Character_Controller : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 desiredPosition = new Vector3(0.0f, 1.0f, 0.0f);
+        // 플레이어의 현재 위치를 기준으로 Gizmos를 그립니다.
+        Vector3 desiredPosition = transform.position + new Vector3(0.0f, 1.0f, 0.0f); // 원하는 높이로 오프셋 적용
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(desiredPosition, radius);
     }
