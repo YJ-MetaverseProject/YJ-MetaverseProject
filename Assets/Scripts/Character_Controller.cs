@@ -22,18 +22,18 @@ public class Character_Controller : MonoBehaviour
     public GameObject obj_Body;
     public GameObject obj_Cam_First, obj_Cam_Quarter;
     public float radius = 0f;
-    public float sesitivity = 300f;
-    public float rotationX;
-    public float rotationY;
     public LayerMask layer;
     public Collider[] colliders;
     public GameObject OnText;
     public Collider nearObj;
 
+    private Transform cameraTransform;
 
-    // Start is called before the first frame update
-    /*private void Start()
+    private void Start()
     {
+        GameObject otherCameraObj = GameObject.FindGameObjectWithTag("ViewCamera"); // 다른 카메라를 태그로 찾음
+        cameraTransform = otherCameraObj.transform; // 다른 카메라의 Transform을 가져옴
+
         if (GetComponent<PhotonView>().IsMine)
         {
             obj_Cam_First.SetActive(false);
@@ -46,11 +46,11 @@ public class Character_Controller : MonoBehaviour
             obj_Cam_Quarter.SetActive(false);
             this.gameObject.name += "(OtherPlayer)";
         }
-    }*/
-    // Update is called once per frame
+    }
+
     private void Update()
     {
-        Vector3 centerPosition = Camera.main.transform.position + Camera.main.transform.forward * radius;
+        Vector3 centerPosition = cameraTransform.position + cameraTransform.forward * radius; // 카메라 방향으로 수정
         colliders = Physics.OverlapSphere(centerPosition, radius, layer);
         Debug.Log("Number of colliders detected: " + colliders.Length);
 
@@ -73,6 +73,7 @@ public class Character_Controller : MonoBehaviour
             OnText.SetActive(false);
         }
     }
+
     private void LateUpdate()
     {
         if (GetComponent<PhotonView>().IsMine)
@@ -80,7 +81,7 @@ public class Character_Controller : MonoBehaviour
             float pos_x = Input.GetAxis("Horizontal");
             float pos_z = Input.GetAxis("Vertical");
 
-            //�޸��� ON&OFF
+            // Run ON&OFF
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 m_Animator.SetBool("Run", true);
@@ -90,69 +91,25 @@ public class Character_Controller : MonoBehaviour
                 m_Animator.SetBool("Run", false);
             }
 
-            //�ȱ� ON&OFF �� ĳ���� �̵�
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            // Camera 방향으로 이동
+            Vector3 moveDirection = cameraTransform.forward * pos_z + cameraTransform.right * pos_x;
+            moveDirection.y = 0; // 수직 방향은 제거
+            moveDirection.Normalize();
+
+            if (moveDirection != Vector3.zero)
             {
-                //Debug.Log(new Vector2(pos_x, pos_z));
-                if (pos_x > 0)
-                {
-                    if (pos_z > 0)
-                    {
-                        obj_Body.transform.localEulerAngles = new Vector3(0f, 45f, 0f);
-                        //transform.Rotate(new Vector3(0f, 45f, 0f));
-                    }
-                    else if (pos_z < 0)
-                    {
-                        obj_Body.transform.localEulerAngles = new Vector3(0f, 135f, 0f);
-                        //transform.Rotate(new Vector3(0f, 135f, 0f));
-                    }
-                    else
-                    {
-                        obj_Body.transform.localEulerAngles = new Vector3(0f, 90f, 0f);
-                        //transform.Rotate(new Vector3(0f, 90f, 0f));
-                    }
-                }
-                else if (pos_x < 0)
-                {
-                    if (pos_z > 0)
-                    {
-                        obj_Body.transform.localEulerAngles = new Vector3(0f, -45f, 0f);
-                        //transform.Rotate(new Vector3(0f, -45f, 0f));
-                    }
-                    else if (pos_z < 0)
-                    {
-                        obj_Body.transform.localEulerAngles = new Vector3(0f, -135f, 0f);
-                        //transform.Rotate(new Vector3(0f, -135f, 0f));
-                    }
-                    else
-                    {
-                        obj_Body.transform.localEulerAngles = new Vector3(0f, 270f, 0f);
-                        //transform.Rotate(new Vector3(0f, 270f, 0f));
-                    }
-                }
-                else
-                {
-                    if (pos_z > 0)
-                    {
-                        obj_Body.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
-                        //transform.Rotate(new Vector3(0f, 0f, 0f));
-                    }
-                    else if (pos_z < 0)
-                    {
-                        obj_Body.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
-                        //transform.Rotate(new Vector3(0f, 45f, 0f));
-                    }
-                }
+                // 애니메이션 방향 설정
+                float angle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
+                obj_Body.transform.rotation = Quaternion.Euler(0, angle, 0);
 
                 m_Animator.SetBool("Walk", true);
                 if (m_Animator.GetBool("Run"))
                 {
-                    transform.Translate(new Vector3(pos_x, 0, pos_z) * Time.deltaTime * f_MoveSpeed * f_RunSpeed);
+                    transform.Translate(moveDirection * Time.deltaTime * f_MoveSpeed * f_RunSpeed, Space.World);
                 }
                 else
                 {
-                    //transform.position += new Vector3(pos_x, 0, pos_z) * Time.deltaTime * f_MoveSpeed;
-                    transform.Translate(new Vector3(pos_x, 0, pos_z) * Time.deltaTime * f_MoveSpeed);
+                    transform.Translate(moveDirection * Time.deltaTime * f_MoveSpeed, Space.World);
                 }
             }
             else
@@ -164,25 +121,10 @@ public class Character_Controller : MonoBehaviour
             {
                 m_Animator.SetTrigger("Jump");
             }
-
-            float mouseMoveX = Input.GetAxis("Mouse X");
-            float mouseMoveY = Input.GetAxis("Mouse Y");
-            rotationY += mouseMoveX * sesitivity * Time.deltaTime;
-            rotationX += mouseMoveY * sesitivity * Time.deltaTime;
-
-            if (rotationX > 35f)
-            {
-                rotationX = 35f;
-            }
-            if (rotationX < -30f)
-            {
-                rotationX = -30f;
-            }
-
-            transform.eulerAngles = new Vector3(-rotationX, rotationY, 0);
-        }    
+        }
     }
-     private void OnDrawGizmos()
+
+    private void OnDrawGizmos()
     {
         Vector3 desiredPosition = new Vector3(0.0f, 1.0f, 0.0f);
         Gizmos.color = Color.red;

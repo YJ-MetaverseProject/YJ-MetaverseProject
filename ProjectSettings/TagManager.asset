@@ -8,6 +8,7 @@ TagManager:
   - NotError
   - Bullet
   - FlashLight
+  - ViewCamera
   layers:
   - Default
   - TransparentFX
