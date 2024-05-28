@@ -8,6 +8,8 @@ TagManager:
   - NotError
   - Bullet
   - AP
+  - FlashLight
+  - ViewCamera
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Obj
-  - 
+  - Button
   - 
   - 
   - 
