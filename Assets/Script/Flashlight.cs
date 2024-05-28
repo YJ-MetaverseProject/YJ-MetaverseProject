@@ -6,6 +6,7 @@ public class Flashlight : MonoBehaviour
 {
 
     public GameObject flashlight;
+    
 
     public bool on;
     public bool off;
@@ -13,6 +14,7 @@ public class Flashlight : MonoBehaviour
 
     private void Start()
     {
+        flashlight = GameObject.FindWithTag("FlashLight");
         off = true;
         flashlight.SetActive(false);
     }
@@ -21,6 +23,7 @@ public class Flashlight : MonoBehaviour
     {
         if(off && Input.GetButtonDown("FlashLight") && checkflash)
         {
+            Debug.Log("on");
             flashlight.SetActive(true);
             off = false;
             on = true;
@@ -29,6 +32,7 @@ public class Flashlight : MonoBehaviour
         }
         else if( on && Input.GetButtonDown("FlashLight") && checkflash)
         {
+            Debug.Log("off");
             flashlight.SetActive(false);
             on = false;
             off = true;
