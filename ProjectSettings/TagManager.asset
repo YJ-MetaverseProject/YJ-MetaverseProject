@@ -10,6 +10,8 @@ TagManager:
   - AP
   - FlashLight
   - ViewCamera
+  - CinemachineTarget
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - UI
   - Obj
   - Button
-  - 
+  - Player
   - 
   - 
   - 

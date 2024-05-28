@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Timer_tick : MonoBehaviour
 {
@@ -11,8 +12,18 @@ public class Timer_tick : MonoBehaviour
     [SerializeField] private int second;
     [SerializeField] private bool isTimerRunning = false;
 
+    public Button yourButton; // Unity 에디터에서 해당 버튼을 연결할 수 있도록 public 변수를 선언합니다.
+
+    void Start()
+    {
+        // 버튼에 대한 이벤트 핸들러를 추가합니다.
+        yourButton.onClick.AddListener(StartTimer);
+    }
+
     public void StartTimer()
     {
+        Debug.Log("타이머 실행");
+
         // 타이머가 이미 실행 중인 경우, 중복 실행을 방지합니다.
         if (!isTimerRunning)
         {
