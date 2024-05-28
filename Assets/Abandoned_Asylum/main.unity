@@ -883,6 +883,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: man
       objectReference: {fileID: 0}
+    - target: {fileID: 413963947438422778, guid: 1ba9c524d7ac73244ae28448fb3169e2, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 592274095298916754, guid: 1ba9c524d7ac73244ae28448fb3169e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.7
@@ -950,6 +954,10 @@ PrefabInstance:
     - target: {fileID: 7499155942773710503, guid: 1ba9c524d7ac73244ae28448fb3169e2, type: 3}
       propertyPath: sceneViewId
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8201725754979701682, guid: 1ba9c524d7ac73244ae28448fb3169e2, type: 3}
+      propertyPath: m_TagString
+      value: ViewCamera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
