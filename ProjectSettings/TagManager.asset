@@ -12,6 +12,7 @@ TagManager:
   - ViewCamera
   - CinemachineTarget
   - Button
+  - Door
   layers:
   - Default
   - TransparentFX
