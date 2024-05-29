@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     private int aliveAPCount; // 탈락카운트 값
     private int apDelayTick;
 
+    public GameObject text;
+    public Player_Spawn player_Spawn;
+
     private void Awake()
     {
         if(gameManager != null && gameManager != this)
@@ -31,6 +34,7 @@ public class GameManager : MonoBehaviour
         }
         gameManager = this;
         foreach(var ap in apObjs) APList.Add(ap, false);
+        player_Spawn = GetComponent<Player_Spawn>();
     }
 
     public void Start() => GameSet();
@@ -49,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         isGameStart = true;
         StartCoroutine(TimeTick());
-        while(AP_LIMIT/2 > aliveAPCount)
+        while(APList.Count > 0 && AP_LIMIT/2 > aliveAPCount)
         {
             var temp = UnityEngine.Random.Range(0, apObjs.Length);
             if(!APSet(temp)) continue;
@@ -58,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     private void TickUpdate()
     {
-        if(apDelayTick++ < AP_DELAY_TICK && aliveAPCount < AP_LIMIT)
+        if(APList.Count > 0 && apDelayTick++ < AP_DELAY_TICK && aliveAPCount < AP_LIMIT)
         {
             apDelayTick = 0;
             while(!APSet(UnityEngine.Random.Range(0, apObjs.Length)));
@@ -68,7 +72,7 @@ public class GameManager : MonoBehaviour
     // false : 활성화 실패, true : 활성화 성공
     private bool APSet(int idx) // 이상현상이 
     {
-        if(APList[apObjs[idx]]) return false;
+        if(APList.Count > 0 || APList[apObjs[idx]]) return false;
         APList[apObjs[idx]] = true;
         apObjs[idx].APSet(true);
         aliveAPCount++;

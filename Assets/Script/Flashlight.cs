@@ -11,7 +11,7 @@ public class Flashlight : MonoBehaviour
 
     private void Start()
     {
-        flashlight = GameObject.FindWithTag("FlashLight");
+        // flashlight = GameObject.FindWithTag("FlashLight");
         off = true;
         flashlight.SetActive(false);
     }

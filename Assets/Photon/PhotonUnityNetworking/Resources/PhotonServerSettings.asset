@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 
+    AppIdRealtime: e317c7cb-e84c-45a1-a0da-8e827d948541
     AppIdFusion: 
     AppIdChat: 
     AppIdVoice: 
-    AppVersion: 
+    AppVersion: 0.1a
     UseNameServer: 1
-    FixedRegion: 
+    FixedRegion: kr
     Server: 
     Port: 0
     ProxyServer: 
@@ -41,6 +41,8 @@ MonoBehaviour:
   - PauseVideo
   - PlayVideo
   - RespawnSpaceship
+  - Create_Player
+  - Remove_Player
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 0

@@ -28,31 +28,22 @@ public class Character_Controller : MonoBehaviour
     public GameObject OnText;
     public Collider nearObj;
 
-    private Transform cameraTransform;
+    public Transform cameraTransform;
 
     private void Start()
     {
-        GameObject otherCameraObj = GameObject.FindGameObjectWithTag("ViewCamera"); // 다른 카메라를 태그로 찾음
-        cameraTransform = otherCameraObj.transform; // 다른 카메라의 Transform을 가져옴
+        // GameObject otherCameraObj = GameObject.FindGameObjectWithTag("ViewCamera"); // 다른 카메라를 태그로 찾음
+        // cameraTransform = otherCameraObj.transform; // 다른 카메라의 Transform을 가져옴
 
-
-        if (GetComponent<PhotonView>().IsMine)
-        {
-            obj_Cam_First.SetActive(false);
-            obj_Cam_Quarter.SetActive(true);
-            this.gameObject.name += "(LocalPlayer)";
-        }
-        else
-        {
-            obj_Cam_First.SetActive(false);
-            obj_Cam_Quarter.SetActive(false);
-            this.gameObject.name += "(OtherPlayer)";
-        }
-
+        OnText = GameManager.Instance.text;
+        if(GetComponent<PhotonView>().IsMine) cameraTransform.gameObject.SetActive(true);
+        else cameraTransform.gameObject.SetActive(false);
     }
 
     private void Update()
     {
+        if(!GetComponent<PhotonView>().IsMine) return;
+
         character_ray_shot();
 
 
