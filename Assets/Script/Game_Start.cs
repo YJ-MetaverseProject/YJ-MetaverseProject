@@ -8,27 +8,32 @@ public class Game_Start : MonoBehaviour
     public GameObject warning_text;
     private bool game_start_bool = false;
 
-    [Header("ÇÃ·¹ÀÌ¾î ½ºÆù Æ÷ÀÎÆ® °ª")]
+    [Header("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½")]
     [SerializeField] private GameObject tutorial_Spawn_point;
     [SerializeField] private GameObject[] Random_Spawn_points;
 
     void Start()
     {
-        Player.transform.position = tutorial_Spawn_point.transform.position;
-        Debug.Log("ÇÃ·¹ÀÌ¾î À§Ä¡ Æ©Åä¸®¾ó ·ëÀ¸·Î ÀÌµ¿");
+        // Player.transform.position = tutorial_Spawn_point.transform.position;
+        Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½");
         map_light.SetActive(true);
         warning_text.SetActive(false);
     }
 
     void Update()
     {
-        if (timer.second == 20) // 20ÃÊÀÏ¶§ °æ°í¹®±¸ ¶ç¿ì±â
+        if (timer.second == 20) // 20ï¿½ï¿½ï¿½Ï¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
             warning_text.SetActive(true);
 
         }
 
         StartGame();
+    }
+
+    public void TutorialSpawn()
+    {
+        Player.transform.position = tutorial_Spawn_point.transform.position;
     }
 
     void StartGame()
@@ -48,6 +53,6 @@ public class Game_Start : MonoBehaviour
     {
         int randomIndex = Random.Range(0, Random_Spawn_points.Length);
         Player.transform.position = Random_Spawn_points[randomIndex].transform.position;
-        Debug.Log("ÇÃ·¹ÀÌ¾î À§Ä¡ " + randomIndex + " ·Î ÀÌµ¿");
+        Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ " + randomIndex + " ï¿½ï¿½ ï¿½Ìµï¿½");
     }
 }

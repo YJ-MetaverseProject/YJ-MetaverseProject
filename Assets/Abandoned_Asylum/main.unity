@@ -7684,14 +7684,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  Random_range: 0
+  map_light: {fileID: 0}
+  timer: {fileID: 1056867572}
+  warning_text: {fileID: 0}
   tutorial_Spawn_point: {fileID: 1768667617}
-  Random_Spawn_point1: {fileID: 786436253}
-  Random_Spawn_point2: {fileID: 24129390}
-  Random_Spawn_point3: {fileID: 822274530}
-  Random_Spawn_point4: {fileID: 1689273867}
-  Random_Spawn_point5: {fileID: 1712002908}
-  Random_Spawn_point6: {fileID: 190280366}
+  Random_Spawn_points:
+  - {fileID: 786436253}
+  - {fileID: 24129390}
+  - {fileID: 822274530}
+  - {fileID: 1689273867}
+  - {fileID: 1712002908}
+  - {fileID: 190280366}
 --- !u!114 &1056867575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7720,7 +7723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apObjs: []
   text: {fileID: 1678763688}
-  player_Spawn: {fileID: 0}
+  game_Start: {fileID: 1056867574}
 --- !u!114 &1056867577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15632,6 +15635,10 @@ PrefabInstance:
     - {fileID: 8604430604998535540, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
     - {fileID: 8605380846167454030, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
     - {fileID: 8605159632437725972, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
+    - {fileID: 8605127699208545372, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
+    - {fileID: 8605301135004557758, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
+    - {fileID: 8605279746428176260, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
+    - {fileID: 8605312551294624354, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8602088885643223634, guid: beef3bcde1610f04aa96275436147bb9, type: 3}
       insertIndex: 16

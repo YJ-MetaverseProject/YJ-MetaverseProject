@@ -45,8 +45,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("OnJoinedRoom");
         // foreach(var player in PhotonNetwork.PlayerListOthers) Create_Player(player);
         photonView.RPC("Create_Player", RpcTarget.All);
-        GameManager.Instance.player_Spawn.Player = go;
-        GameManager.Instance.player_Spawn.TutorialSpawn();
+        GameManager.Instance.game_Start.Player = go;
+        GameManager.Instance.game_Start.TutorialSpawn();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -66,6 +66,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Create Player");
         var prefab = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        prefab.layer = LayerMask.NameToLayer("OtherPlayer");
         go = prefab;
     }
 

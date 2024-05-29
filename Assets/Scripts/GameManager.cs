@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     private int apDelayTick;
 
     public GameObject text;
-    public Player_Spawn player_Spawn;
+    public Game_Start game_Start;
 
     private void Awake()
     {
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         }
         gameManager = this;
         foreach(var ap in apObjs) APList.Add(ap, false);
-        player_Spawn = GetComponent<Player_Spawn>();
+        game_Start = GetComponent<Game_Start>();
     }
 
     public void Start() => GameSet();
