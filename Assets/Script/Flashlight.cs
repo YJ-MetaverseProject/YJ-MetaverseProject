@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Flashlight : MonoBehaviour
-{
-
-    public GameObject flashlight;
-    
-
+{    
+    [SerializeField] private GameObject flashlight;
     public bool on;
     public bool off;
     public bool checkflash = true;
