@@ -3163,6 +3163,18 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 592274095298916754, guid: 1ba9c524d7ac73244ae28448fb3169e2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 592274095298916754, guid: 1ba9c524d7ac73244ae28448fb3169e2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 592274095298916754, guid: 1ba9c524d7ac73244ae28448fb3169e2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 592274095298916754, guid: 1ba9c524d7ac73244ae28448fb3169e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -8378,14 +8390,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 436504429}
-  Random_range: 0
+  map_light: {fileID: 1475309594}
+  timer: {fileID: 1056867572}
+  warning_text: {fileID: 1982514464}
   tutorial_Spawn_point: {fileID: 1768667617}
-  Random_Spawn_point1: {fileID: 786436253}
-  Random_Spawn_point2: {fileID: 24129390}
-  Random_Spawn_point3: {fileID: 822274530}
-  Random_Spawn_point4: {fileID: 1689273867}
-  Random_Spawn_point5: {fileID: 1712002908}
-  Random_Spawn_point6: {fileID: 190280366}
+  Random_Spawn_points:
+  - {fileID: 786436253}
+  - {fileID: 24129390}
+  - {fileID: 822274530}
+  - {fileID: 1689273867}
+  - {fileID: 1712002908}
+  - {fileID: 190280366}
 --- !u!1 &1091854522
 GameObject:
   m_ObjectHideFlags: 0
@@ -10879,7 +10894,7 @@ GameObject:
   - component: {fileID: 1475309596}
   - component: {fileID: 1475309595}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: world_light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
