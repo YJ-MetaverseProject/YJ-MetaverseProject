@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngineInternal;
 
 public class Character_Controller : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class Character_Controller : MonoBehaviour
     public Collider nearObj;
 
     private Transform cameraTransform;
+
+    Door door;
 
     private void Start()
     {
@@ -159,6 +162,7 @@ public class Character_Controller : MonoBehaviour
             {
                 print("raycast hit!");
                 Debug.DrawRay(ray.origin, ray.direction * 20, Color.red, 5f);
+                Debug.Log(hit.collider.gameObject.name);
 
                 // 충돌한 객체가 버튼이라면
                 if (hit.collider.CompareTag("Button"))
@@ -174,10 +178,32 @@ public class Character_Controller : MonoBehaviour
 
                     }
                 }
+                //충돌한 객체가 Door라면
+                if (hit.collider.CompareTag("Door"))
+                {
+                    //Door 코드 실행
+                    Door door = hit.collider.GetComponent<Door>();
+                    //door값이 null이 아닐 때
+                    if (door != null)
+                    {
+                        Debug.Log(door.DoorState);
+                        //door의 상태가 false면 true로 바꾸면서 문이 열림
+                        if (!door.DoorState)
+                        {
+                            door.Open();
+                            Debug.Log("문이 열림");
+                        }
+                        //door의 상태가 true false로 바꾸면서 문이 열림
+                        else
+                        {
+                            door.Close();
+                            Debug.Log("문이 닫힘");
+                        }
+                    }
+                }
 
             }
 
         }
     }
-
 }
