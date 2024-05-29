@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Error
+  - NotError
+  - Bullet
+  - AP
+  - FlashLight
+  - ViewCamera
+  - CinemachineTarget
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -11,9 +19,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Obj
+  - Button
+  - Player
   - 
   - 
   - 
