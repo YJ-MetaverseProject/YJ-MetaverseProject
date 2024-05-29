@@ -9,7 +9,7 @@ public class Timer_tick : MonoBehaviour
     [SerializeField] private TMP_Text time_text;
     [SerializeField] private float tick = 5.0f;
     [SerializeField] private int minute;
-    [SerializeField] private int second;
+    public int second;
     [SerializeField] private bool isTimerRunning = false;
 
     public Button yourButton; // Unity 에디터에서 해당 버튼을 연결할 수 있도록 public 변수를 선언합니다.
