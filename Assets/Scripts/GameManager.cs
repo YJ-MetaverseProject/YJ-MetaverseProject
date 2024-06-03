@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun.Demo.Cockpit;
+using Photon.Voice.PUN;
+using Photon.Voice.Unity;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -25,6 +28,14 @@ public class GameManager : MonoBehaviour
     public GameObject text;
     public Game_Start game_Start;
 
+    private bool isMicOn;
+    public bool IsMicOn { set { isMicOn = value;  GetComponent<Recorder>().TransmitEnabled = isMicOn; } }
+
+    public void SetVoice(GameObject gameObject)
+    {
+        PunVoiceClient.Instance.SpeakerPrefab = gameObject;
+    }
+
     private void Awake()
     {
         if(gameManager != null && gameManager != this)
@@ -35,6 +46,7 @@ public class GameManager : MonoBehaviour
         gameManager = this;
         foreach(var ap in apObjs) APList.Add(ap, false);
         game_Start = GetComponent<Game_Start>();
+        GetComponent<Recorder>().TransmitEnabled = false;
     }
 
     public void Start() => GameSet();

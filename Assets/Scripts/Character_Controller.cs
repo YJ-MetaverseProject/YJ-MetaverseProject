@@ -1,4 +1,6 @@
 using Photon.Pun;
+using Photon.Voice.PUN;
+using Photon.Voice.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +20,8 @@ public class Character_Controller : MonoBehaviour
 
     [Range(0, 100f)]
     public float f_RotateSpeed;
+
+    public bool isMicOn;
 
     public GameObject obj_Rotate_Horizontal;
     public GameObject obj_Rotate_Vertical;
@@ -39,7 +43,12 @@ public class Character_Controller : MonoBehaviour
         // cameraTransform = otherCameraObj.transform; // 다른 카메라의 Transform을 가져옴
 
         OnText = GameManager.Instance.text;
-        if(GetComponent<PhotonView>().IsMine) cameraTransform.gameObject.SetActive(true);
+
+        if(GetComponent<PhotonView>().IsMine)
+        {
+            cameraTransform.gameObject.SetActive(true);
+            GameManager.Instance.SetVoice(gameObject);
+        }
         else
         {
             cameraTransform.gameObject.SetActive(false);
@@ -59,6 +68,12 @@ public class Character_Controller : MonoBehaviour
     private void Update()
     {
         if(!GetComponent<PhotonView>().IsMine) return;
+
+        if(Input.GetButtonDown("Mic")) 
+        {
+            isMicOn = !isMicOn;
+            GameManager.Instance.IsMicOn = isMicOn;
+        }
 
         character_ray_shot();
 
@@ -92,6 +107,7 @@ public class Character_Controller : MonoBehaviour
     {
         if (GetComponent<PhotonView>().IsMine)
         {
+
             float pos_x = Input.GetAxis("Horizontal");
             float pos_z = Input.GetAxis("Vertical");
 
@@ -135,9 +151,6 @@ public class Character_Controller : MonoBehaviour
             // {
             //     m_Animator.SetTrigger("Jump");
             // }
-
-            // 캐릭터 회전을 카메라의 회전과 일치시킵니다.
-            transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
         }
     }
 
