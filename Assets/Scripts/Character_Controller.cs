@@ -131,10 +131,10 @@ public class Character_Controller : MonoBehaviour
                 m_Animator.SetBool("Walk", false);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                m_Animator.SetTrigger("Jump");
-            }
+            // if (Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     m_Animator.SetTrigger("Jump");
+            // }
         }
     }
 

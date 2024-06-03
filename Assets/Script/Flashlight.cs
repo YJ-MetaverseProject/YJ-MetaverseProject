@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class Flashlight : MonoBehaviour
@@ -18,6 +19,7 @@ public class Flashlight : MonoBehaviour
 
     private void Update()
     {
+        if(!GetComponent<PhotonView>().IsMine) return;
         if(off && Input.GetButtonDown("FlashLight") && checkflash)
         {
             Debug.Log("on");
