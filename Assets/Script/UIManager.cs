@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject yes_Btn;
     [SerializeField] GameObject No_Btn;
     [SerializeField] GameObject back;
+    [SerializeField] GameObject Agreement;
+    [SerializeField] GameObject Game_Start;
     private void Start()
     {
         Default_ESCUI();
@@ -77,7 +79,11 @@ public class UIManager : MonoBehaviour
             mic_on.SetActive(false);
         }
     }
-
+    public void Green_Btn_Clicked()
+    {
+        Game_Start.SetActive(false);
+        Agreement.SetActive(true);
+    }
     public void Option_Btn()
     {
         option.SetActive(true);

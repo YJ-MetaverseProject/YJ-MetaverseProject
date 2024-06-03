@@ -135,6 +135,9 @@ public class Character_Controller : MonoBehaviour
             // {
             //     m_Animator.SetTrigger("Jump");
             // }
+
+            // 캐릭터 회전을 카메라의 회전과 일치시킵니다.
+            transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
         }
     }
 
