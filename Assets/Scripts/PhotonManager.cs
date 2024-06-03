@@ -44,7 +44,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom");
         // foreach(var player in PhotonNetwork.PlayerListOthers) Create_Player(player);
-        photonView.RPC("Create_Player", RpcTarget.All);
+        Create_Player();
         GameManager.Instance.game_Start.Player = go;
         GameManager.Instance.game_Start.TutorialSpawn();
     }
@@ -58,10 +58,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log("OnPlayerLeftRoom : " + otherPlayer.NickName);
-        photonView.RPC("Remove_Player", RpcTarget.Others, otherPlayer);
+        Remove_Player(otherPlayer);
     }
 
-    [PunRPC]
     public void Create_Player()
     {
         Debug.Log("Create Player");
@@ -70,7 +69,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         go = prefab;
     }
 
-    [PunRPC]
     public void Remove_Player(Player player)
     {
         PhotonNetwork.DestroyPlayerObjects(player);

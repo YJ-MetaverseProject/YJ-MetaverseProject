@@ -125,6 +125,7 @@ MonoBehaviour:
   colliders: []
   OnText: {fileID: 0}
   nearObj: {fileID: 0}
+  cameraTransform: {fileID: 0}
 --- !u!114 &7499155942773710503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3155,7 +3156,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 759
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

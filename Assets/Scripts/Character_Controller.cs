@@ -40,7 +40,20 @@ public class Character_Controller : MonoBehaviour
 
         OnText = GameManager.Instance.text;
         if(GetComponent<PhotonView>().IsMine) cameraTransform.gameObject.SetActive(true);
-        else cameraTransform.gameObject.SetActive(false);
+        else
+        {
+            cameraTransform.gameObject.SetActive(false);
+            GetComponent<Rigidbody>().isKinematic = true;
+            ChangeLayersRecursively(transform, "OtherPlayer");
+            void ChangeLayersRecursively(Transform trans, string name)
+            {
+                trans.gameObject.layer = LayerMask.NameToLayer(name);
+                foreach (Transform child in trans)
+                {
+                    ChangeLayersRecursively(child, name);
+                }
+            }
+        }
     }
 
     private void Update()
