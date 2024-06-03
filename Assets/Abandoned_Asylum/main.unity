@@ -3715,6 +3715,7 @@ MonoBehaviour:
   sesitivity: 500
   rotationX: 0
   rotationY: 0
+  playerBody: {fileID: 1667098216}
 --- !u!1 &438300239
 GameObject:
   m_ObjectHideFlags: 0
@@ -12746,6 +12747,11 @@ Transform:
   - {fileID: 1524459875}
   m_Father: {fileID: 8606311150561899607}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1667098216 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7017223343744921376, guid: 1ba9c524d7ac73244ae28448fb3169e2, type: 3}
+  m_PrefabInstance: {fileID: 436504428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1668605701
 GameObject:
   m_ObjectHideFlags: 0
