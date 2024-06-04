@@ -48,6 +48,7 @@ public class Character_Controller : MonoBehaviour
         {
             cameraTransform.gameObject.SetActive(true);
             GameManager.Instance.SetVoice(gameObject);
+            GetComponent<AudioSource>().enabled = false;
         }
         else
         {
