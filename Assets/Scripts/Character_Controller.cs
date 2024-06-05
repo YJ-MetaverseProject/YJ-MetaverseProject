@@ -148,17 +148,10 @@ public class Character_Controller : MonoBehaviour
                 m_Animator.SetBool("Walk", false);
             }
 
-<<<<<<< HEAD
             // if (Input.GetKeyDown(KeyCode.Space))
             // {
             //     m_Animator.SetTrigger("Jump");
             // }
-=======
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                m_Animator.SetTrigger("Jump");
-            }
->>>>>>> parent of 03e8f63 (SIya)
         }
     }
 
