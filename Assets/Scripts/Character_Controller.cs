@@ -34,8 +34,7 @@ public class Character_Controller : MonoBehaviour
     public Collider nearObj;
 
     public Transform cameraTransform;
-
-    Door door;
+    
 
     private void Start()
     {
