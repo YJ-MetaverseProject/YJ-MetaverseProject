@@ -8,14 +8,13 @@ public class Game_Start : MonoBehaviour
     public GameObject warning_text;
     private bool game_start_bool = false;
 
-    [Header("�÷��̾� ���� ����Ʈ ��")]
+    [Header("플레이어 스폰 포인트")]
     [SerializeField] private GameObject tutorial_Spawn_point;
     [SerializeField] private GameObject[] Random_Spawn_points;
 
     void Start()
     {
         // Player.transform.position = tutorial_Spawn_point.transform.position;
-        Debug.Log("�÷��̾� ��ġ Ʃ�丮�� ������ �̵�");
         map_light.SetActive(true);
         warning_text.SetActive(false);
     }

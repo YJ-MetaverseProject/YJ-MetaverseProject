@@ -7733,7 +7733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  map_light: {fileID: 0}
+  map_light: {fileID: 1475309594}
   timer: {fileID: 1056867572}
   warning_text: {fileID: 0}
   tutorial_Spawn_point: {fileID: 1768667617}
@@ -10249,7 +10249,7 @@ GameObject:
   - component: {fileID: 1475309596}
   - component: {fileID: 1475309595}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: world_light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
