@@ -13,6 +13,7 @@ TagManager:
   - CinemachineTarget
   - Button
   - Door
+  - DoubleDoor
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Obj
   - Button
   - Player
-  - 
+  - OtherPlayer
   - 
   - 
   - 

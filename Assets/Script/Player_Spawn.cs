@@ -4,57 +4,61 @@ using UnityEngine;
 
 public class Player_Spawn : MonoBehaviour
 {
-    public GameObject Player; //ÇÃ·¹ÀÌ¾î
-    public int Random_range; //·£´ýÇÑ °ª ¹Þ¾Æ¿Í È®ÀÎ
+    public GameObject Player; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½
+    public int Random_range; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ È®ï¿½ï¿½
 
-    [Header("ÇÃ·¹ÀÌ¾î ½ºÆù Æ÷ÀÎÆ® °ª")]
-    [SerializeField] private GameObject tutorial_Spawn_point; //Æ©Åä¸®¾ó ½ºÆù Æ÷ÀÎÆ®
-    [SerializeField] private GameObject Random_Spawn_point1; //·£´ý ½ºÆù Æ÷ÀÎÆ®1
-    [SerializeField] private GameObject Random_Spawn_point2; //·£´ý ½ºÆù Æ÷ÀÎÆ®2
-    [SerializeField] private GameObject Random_Spawn_point3; //·£´ý ½ºÆù Æ÷ÀÎÆ®3
-    [SerializeField] private GameObject Random_Spawn_point4; //·£´ý ½ºÆù Æ÷ÀÎÆ®4
-    [SerializeField] private GameObject Random_Spawn_point5; //·£´ý ½ºÆù Æ÷ÀÎÆ®5
-    [SerializeField] private GameObject Random_Spawn_point6; //·£´ý ½ºÆù Æ÷ÀÎÆ®6
+    [Header("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½")]
+    [SerializeField] private GameObject tutorial_Spawn_point; //Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+    [SerializeField] private GameObject Random_Spawn_point1; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®1
+    [SerializeField] private GameObject Random_Spawn_point2; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®2
+    [SerializeField] private GameObject Random_Spawn_point3; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®3
+    [SerializeField] private GameObject Random_Spawn_point4; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®4
+    [SerializeField] private GameObject Random_Spawn_point5; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®5
+    [SerializeField] private GameObject Random_Spawn_point6; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®6
 
 
     void Start()
     {
-        //°ÔÀÓ ½ÃÀÛ½Ã ÇÃ·¹ÀÌ¾î À§Ä¡ °ªÀ» Æ©Åä¸®¾ó ½ºÆù Æ÷ÀÎÆ® °ªÀ¸·Î º¯°æ
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ Æ©ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Player.transform.position = tutorial_Spawn_point.transform.position;
-        Debug.Log("ÇÃ·¹ÀÌ¾î À§Ä¡ Æ©Åä¸®¾ó·ëÀ¸·Î ÀÌµ¿");
+        Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ Æ©ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½");
     }
 
+    public void TutorialSpawn()
+    {
+        Player.transform.position = tutorial_Spawn_point.transform.position;
+    }
 
-    //ÇÃ·¹ÀÌ¾î °ÔÀÓ ½ÃÀÛ½Ã ·£´ýÇÑ À§Ä¡¿¡ ½ºÆù
-    //ÇÃ·¹ÀÌ¾î°¡ °ÔÀÓ ½ÃÀÛ ¹öÆ° ´©¸¦½Ã ·£´ýÇÑ À§Ä¡¿¡ ½ºÆù
+    //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void Player_Random_Spawn()
     {
-        Random_range = Random.Range(1, 7); //1~6±îÁöÀÇ ·£´ýÇÑ ¼ýÀÚ »ý¼º
+        Random_range = Random.Range(1, 7); //1~6ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         switch (Random_range)
         {
             case 1:
                 Player.transform.position = Random_Spawn_point1.transform.position;
-                Debug.Log("·£´ýÇÑ ¼ýÀÚ " + Random_range + " »ý¼º" + " ÇÃ·¹ÀÌ¾î À§Ä¡ " + Random_range + " ·Î ÀÌµ¿");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ " + Random_range + " ï¿½ï¿½ï¿½ï¿½" + " ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ " + Random_range + " ï¿½ï¿½ ï¿½Ìµï¿½");
                 break;
             case 2:
                 Player.transform.position = Random_Spawn_point2.transform.position;
-                Debug.Log("·£´ýÇÑ ¼ýÀÚ " + Random_range + " »ý¼º" + " ÇÃ·¹ÀÌ¾î À§Ä¡ " + Random_range + " ·Î ÀÌµ¿");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ " + Random_range + " ï¿½ï¿½ï¿½ï¿½" + " ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ " + Random_range + " ï¿½ï¿½ ï¿½Ìµï¿½");
                 break;
             case 3:
                 Player.transform.position = Random_Spawn_point3.transform.position;
-                Debug.Log("·£´ýÇÑ ¼ýÀÚ " + Random_range + " »ý¼º" + " ÇÃ·¹ÀÌ¾î À§Ä¡ " + Random_range + " ·Î ÀÌµ¿");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ " + Random_range + " ï¿½ï¿½ï¿½ï¿½" + " ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ " + Random_range + " ï¿½ï¿½ ï¿½Ìµï¿½");
                 break;
             case 4:
                 Player.transform.position = Random_Spawn_point4.transform.position;
-                Debug.Log("·£´ýÇÑ ¼ýÀÚ " + Random_range + " »ý¼º" + " ÇÃ·¹ÀÌ¾î À§Ä¡ " + Random_range + " ·Î ÀÌµ¿");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ " + Random_range + " ï¿½ï¿½ï¿½ï¿½" + " ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ " + Random_range + " ï¿½ï¿½ ï¿½Ìµï¿½");
                 break;
             case 5:
                 Player.transform.position = Random_Spawn_point5.transform.position;
-                Debug.Log("·£´ýÇÑ ¼ýÀÚ " + Random_range + " »ý¼º" + " ÇÃ·¹ÀÌ¾î À§Ä¡ " + Random_range + " ·Î ÀÌµ¿");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ " + Random_range + " ï¿½ï¿½ï¿½ï¿½" + " ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ " + Random_range + " ï¿½ï¿½ ï¿½Ìµï¿½");
                 break;
             case 6:
                 Player.transform.position = Random_Spawn_point6.transform.position;
-                Debug.Log("·£´ýÇÑ ¼ýÀÚ " + Random_range + " »ý¼º" + " ÇÃ·¹ÀÌ¾î À§Ä¡ " + Random_range + " ·Î ÀÌµ¿");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ " + Random_range + " ï¿½ï¿½ï¿½ï¿½" + " ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ " + Random_range + " ï¿½ï¿½ ï¿½Ìµï¿½");
                 break;
 
 

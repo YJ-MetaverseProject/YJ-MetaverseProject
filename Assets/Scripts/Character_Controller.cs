@@ -1,4 +1,6 @@
 using Photon.Pun;
+using Photon.Voice.PUN;
+using Photon.Voice.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +21,8 @@ public class Character_Controller : MonoBehaviour
     [Range(0, 100f)]
     public float f_RotateSpeed;
 
+    public bool isMicOn;
+
     public GameObject obj_Rotate_Horizontal;
     public GameObject obj_Rotate_Vertical;
     public GameObject obj_Body;
@@ -29,33 +33,48 @@ public class Character_Controller : MonoBehaviour
     public GameObject OnText;
     public Collider nearObj;
 
-    private Transform cameraTransform;
-
-    Door door;
+    public Transform cameraTransform;
+    
 
     private void Start()
     {
-        GameObject otherCameraObj = GameObject.FindGameObjectWithTag("ViewCamera"); // 다른 카메라를 태그로 찾음
-        cameraTransform = otherCameraObj.transform; // 다른 카메라의 Transform을 가져옴
+        // GameObject otherCameraObj = GameObject.FindGameObjectWithTag("ViewCamera"); // 다른 카메라를 태그로 찾음
+        // cameraTransform = otherCameraObj.transform; // 다른 카메라의 Transform을 가져옴
 
+        OnText = GameManager.Instance.text;
 
-        if (GetComponent<PhotonView>().IsMine)
+        if(GetComponent<PhotonView>().IsMine)
         {
-            obj_Cam_First.SetActive(false);
-            obj_Cam_Quarter.SetActive(true);
-            this.gameObject.name += "(LocalPlayer)";
+            cameraTransform.gameObject.SetActive(true);
+            GameManager.Instance.SetVoice(gameObject);
+            GetComponent<AudioSource>().enabled = false;
         }
         else
         {
-            obj_Cam_First.SetActive(false);
-            obj_Cam_Quarter.SetActive(false);
-            this.gameObject.name += "(OtherPlayer)";
+            cameraTransform.gameObject.SetActive(false);
+            GetComponent<Rigidbody>().isKinematic = true;
+            ChangeLayersRecursively(transform, "OtherPlayer");
+            void ChangeLayersRecursively(Transform trans, string name)
+            {
+                trans.gameObject.layer = LayerMask.NameToLayer(name);
+                foreach (Transform child in trans)
+                {
+                    ChangeLayersRecursively(child, name);
+                }
+            }
         }
-
     }
 
     private void Update()
     {
+        if(!GetComponent<PhotonView>().IsMine) return;
+
+        if(Input.GetButtonDown("Mic")) 
+        {
+            isMicOn = !isMicOn;
+            GameManager.Instance.IsMicOn = isMicOn;
+        }
+
         character_ray_shot();
 
 
@@ -88,6 +107,7 @@ public class Character_Controller : MonoBehaviour
     {
         if (GetComponent<PhotonView>().IsMine)
         {
+
             float pos_x = Input.GetAxis("Horizontal");
             float pos_z = Input.GetAxis("Vertical");
 
@@ -127,10 +147,10 @@ public class Character_Controller : MonoBehaviour
                 m_Animator.SetBool("Walk", false);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                m_Animator.SetTrigger("Jump");
-            }
+            // if (Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     m_Animator.SetTrigger("Jump");
+            // }
         }
     }
 
@@ -145,7 +165,6 @@ public class Character_Controller : MonoBehaviour
     public void character_ray_shot()
     {
         if (Input.GetMouseButtonDown(0))
-
         {
             GameObject otherCameraObj = GameObject.FindGameObjectWithTag("ViewCamera"); // 다른 카메라를 태그로 찾음
 
@@ -156,12 +175,13 @@ public class Character_Controller : MonoBehaviour
 
             RaycastHit hit;
 
+            // Raycast 거리를 Gizmos 구의 반지름 내로 조정합니다.
+            float raycastDistance = radius; // Gizmos 구의 반지름 사용
 
-
-            if (Physics.Raycast(ray, out hit, 5f))
+            if (Physics.Raycast(ray, out hit, raycastDistance))
             {
                 print("raycast hit!");
-                Debug.DrawRay(ray.origin, ray.direction * 20, Color.red, 5f);
+                Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 5f);
                 Debug.Log(hit.collider.gameObject.name);
 
                 // 충돌한 객체가 버튼이라면
@@ -175,25 +195,24 @@ public class Character_Controller : MonoBehaviour
                     {
                         button.onClick.Invoke();
                         Debug.Log("해당 버튼 코드 실행");
-
                     }
                 }
-                //충돌한 객체가 Door라면
+                // 충돌한 객체가 Door라면
                 if (hit.collider.CompareTag("Door"))
                 {
-                    //Door 코드 실행
+                    // Door 코드 실행
                     Door door = hit.collider.GetComponent<Door>();
-                    //door값이 null이 아닐 때
+                    // door 값이 null이 아닐 때
                     if (door != null)
                     {
                         Debug.Log(door.DoorState);
-                        //door의 상태가 false면 true로 바꾸면서 문이 열림
+                        // door의 상태가 false면 true로 바꾸면서 문이 열림
                         if (!door.DoorState)
                         {
                             door.Open();
                             Debug.Log("문이 열림");
                         }
-                        //door의 상태가 true false로 바꾸면서 문이 열림
+                        // door의 상태가 true면 false로 바꾸면서 문이 닫힘
                         else
                         {
                             door.Close();
@@ -201,9 +220,14 @@ public class Character_Controller : MonoBehaviour
                         }
                     }
                 }
-
+                // 충돌한 객체가 Error 태그를 가지고 있다면
+                if (hit.collider.CompareTag("Error"))
+                {
+                    // 이상현상 값을 감소시킵니다.
+                    GameManager.Instance.APFound(hit.collider.GetComponent<AbnomalPhenomenon>());
+                    Debug.Log("Error 태그를 가진 오브젝트를 맞춤. 이상현상 -1.");
+                }
             }
-
         }
     }
 }

@@ -68,7 +68,7 @@ Transform:
   m_GameObject: {fileID: 248822274323737384}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.018, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -113,6 +113,7 @@ MonoBehaviour:
   f_MoveSpeed: 3
   f_RunSpeed: 3
   f_RotateSpeed: 5
+  isMicOn: 0
   obj_Rotate_Horizontal: {fileID: 697785503197186243}
   obj_Rotate_Vertical: {fileID: 3746447047682781521}
   obj_Body: {fileID: 2374430763718696840}
@@ -125,6 +126,7 @@ MonoBehaviour:
   colliders: []
   OnText: {fileID: 0}
   nearObj: {fileID: 0}
+  cameraTransform: {fileID: 0}
 --- !u!114 &7499155942773710503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,8 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashlight: {fileID: 0}
-  on: 0
-  off: 0
+  isOn: 0
   checkflash: 1
 --- !u!1 &371440824650061049
 GameObject:
@@ -3109,7 +3110,7 @@ Transform:
   m_GameObject: {fileID: 8201725754979701682}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0.000000038570988, z: -0.00000004695721, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0.115, z: 0.212}
+  m_LocalPosition: {x: 0.012, y: -0.115, z: 0.212}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3155,7 +3156,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 759
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
