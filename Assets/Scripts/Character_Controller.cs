@@ -34,8 +34,6 @@ public class Character_Controller : MonoBehaviour
     public Collider nearObj;
 
     public Transform cameraTransform;
-    public GameObject walkAudio;
-    public GameObject runAudio;
     
 
     private void Start()
@@ -117,14 +115,10 @@ public class Character_Controller : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 m_Animator.SetBool("Run", true);
-                runAudio.SetActive(true);
-                walkAudio.SetActive(false);
             }
             else
             {
                 m_Animator.SetBool("Run", false);
-                runAudio.SetActive(false);
-                walkAudio.SetActive(true);
             }
 
             // Camera 방향으로 이동
@@ -139,7 +133,6 @@ public class Character_Controller : MonoBehaviour
                 obj_Body.transform.rotation = Quaternion.Euler(0, angle, 0);
 
                 m_Animator.SetBool("Walk", true);
-                walkAudio.SetActive(true);
                 if (m_Animator.GetBool("Run"))
                 {
                     transform.Translate(moveDirection * Time.deltaTime * f_MoveSpeed * f_RunSpeed, Space.World);
@@ -152,7 +145,6 @@ public class Character_Controller : MonoBehaviour
             else
             {
                 m_Animator.SetBool("Walk", false);
-                walkAudio.SetActive(false);
             }
 
             // if (Input.GetKeyDown(KeyCode.Space))
@@ -228,12 +220,12 @@ public class Character_Controller : MonoBehaviour
                         }
                     }
                 }
-                // 충돌한 객체가 Error 태그를 가지고 있다면
-                if (hit.collider.CompareTag("Error"))
+                // 충돌한 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있는 경우
+                AbnomalPhenomenon ap = hit.collider.GetComponent<AbnomalPhenomenon>();
+                if (ap != null)
                 {
-                    // 이상현상 값을 감소시킵니다.
-                    GameManager.Instance.APFound(hit.collider.GetComponent<AbnomalPhenomenon>());
-                    Debug.Log("Error 태그를 가진 오브젝트를 맞춤. 이상현상 -1.");
+                    bool isAP = ap.APReader(); // APReader() 메서드 호출
+                    Debug.Log("끼얏호우"); // WA!!
                 }
             }
         }
