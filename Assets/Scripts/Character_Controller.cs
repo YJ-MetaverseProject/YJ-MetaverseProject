@@ -34,8 +34,6 @@ public class Character_Controller : MonoBehaviour
     public Collider nearObj;
 
     public Transform cameraTransform;
-    public GameObject walkAudio;
-    public GameObject runAudio;
     
 
     private void Start()
@@ -117,14 +115,10 @@ public class Character_Controller : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 m_Animator.SetBool("Run", true);
-                runAudio.SetActive(true);
-                walkAudio.SetActive(false);
             }
             else
             {
                 m_Animator.SetBool("Run", false);
-                runAudio.SetActive(false);
-                walkAudio.SetActive(true);
             }
 
             // Camera 방향으로 이동
@@ -139,7 +133,6 @@ public class Character_Controller : MonoBehaviour
                 obj_Body.transform.rotation = Quaternion.Euler(0, angle, 0);
 
                 m_Animator.SetBool("Walk", true);
-                walkAudio.SetActive(true);
                 if (m_Animator.GetBool("Run"))
                 {
                     transform.Translate(moveDirection * Time.deltaTime * f_MoveSpeed * f_RunSpeed, Space.World);
@@ -152,7 +145,6 @@ public class Character_Controller : MonoBehaviour
             else
             {
                 m_Animator.SetBool("Walk", false);
-                walkAudio.SetActive(false);
             }
 
             // if (Input.GetKeyDown(KeyCode.Space))
@@ -233,7 +225,7 @@ public class Character_Controller : MonoBehaviour
                 if (ap != null)
                 {
                     bool isAP = ap.APReader(); // APReader() 메서드 호출
-                    Debug.Log("끼얏호우");
+                    Debug.Log("끼얏호우"); // WA!!
                 }
             }
         }
