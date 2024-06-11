@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class rotate : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
 
     private float speed = 3f;
 
