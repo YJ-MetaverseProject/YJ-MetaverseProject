@@ -76,12 +76,16 @@ public class GameManager : MonoBehaviour
     {
         isGameStart = true;
         StartCoroutine(TimeTick());
-
+        while(APList.Count > 0 && AP_LIMIT/2 > aliveAPCount)
+        {
+            var temp = UnityEngine.Random.Range(0, apObjs.Length);
+            if(!APSet(temp)) continue;
+        }
     }
 
     private void TickUpdate()
     {
-        if(1 > aliveAPCount && apDelayTick++ < AP_DELAY_TICK && aliveAPCount < AP_LIMIT)
+        if(APList.Count > 0 && apDelayTick++ < AP_DELAY_TICK && aliveAPCount < AP_LIMIT)
         {
             apDelayTick = 0;
             while(!APSet(UnityEngine.Random.Range(0, apObjs.Length)));
@@ -91,7 +95,7 @@ public class GameManager : MonoBehaviour
     // false : 활성화 실패, true : 활성화 성공
     private bool APSet(int idx) // 이상현상이 생성되면 alive카운트 ++
     {
-        if(apObjs.Length <= 0 || APList[apObjs[idx]]) return false;
+        if(APList.Count > 0 || APList[apObjs[idx]]) return false;
         APList[apObjs[idx]] = true;
         apObjs[idx].APSet(true);
         aliveAPCount++;

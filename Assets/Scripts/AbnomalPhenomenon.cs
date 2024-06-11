@@ -6,7 +6,6 @@ public class AbnomalPhenomenon : MonoBehaviour
 {
     public GameObject[] APObjs; // 0:Non-AP, 1:AP
     private bool isAP;
-    public bool IsAP { get { return isAP; } }
 
     public void APSet(bool swh)
     {
@@ -31,7 +30,6 @@ public class AbnomalPhenomenon : MonoBehaviour
             GameManager.Instance.APFound(this);
             APSet(false);
             isAP = false;
-            Debug.Log("¤·¤·");
         }
         Debug.Log("AAA");
         return isAP;

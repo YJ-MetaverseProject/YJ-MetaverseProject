@@ -228,12 +228,12 @@ public class Character_Controller : MonoBehaviour
                         }
                     }
                 }
-                // 충돌한 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있는 경우
-                AbnomalPhenomenon ap = hit.collider.GetComponent<AbnomalPhenomenon>();
-                if (ap != null)
+                // 충돌한 객체가 Error 태그를 가지고 있다면
+                if (hit.collider.CompareTag("Error"))
                 {
-                    bool isAP = ap.APReader(); // APReader() 메서드 호출
-                    Debug.Log("끼얏호우");
+                    // 이상현상 값을 감소시킵니다.
+                    GameManager.Instance.APFound(hit.collider.GetComponent<AbnomalPhenomenon>());
+                    Debug.Log("Error 태그를 가진 오브젝트를 맞춤. 이상현상 -1.");
                 }
             }
         }
