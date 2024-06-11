@@ -53,12 +53,11 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator TimeTick() //틱탕 오브젝트 바뀌는기능
     {
-        int temp = 0;
-        while(temp > 6)
+        yield return new WaitUntil(() => GetComponent<Game_Start>().game_start_bool );
+        while(APList.Count >= AP_LIMIT && AP_LIMIT/2 > aliveAPCount)
         {
-            yield return new WaitUntil(() => !isGamePause );
-            yield return new WaitForSeconds(TIME_TICK);
-            temp++;
+            var tempObj = UnityEngine.Random.Range(0, apObjs.Length);
+            if(!APSet(tempObj)) continue;
         }
         while(isGameStart)
         {
@@ -72,16 +71,11 @@ public class GameManager : MonoBehaviour
     {
         isGameStart = true;
         StartCoroutine(TimeTick());
-        while(APList.Count > AP_LIMIT && AP_LIMIT/2 > aliveAPCount)
-        {
-            var temp = UnityEngine.Random.Range(0, apObjs.Length);
-            if(!APSet(temp)) continue;
-        }
     }
 
     private void TickUpdate()
     {
-        if(APList.Count > AP_LIMIT && apDelayTick++ < AP_DELAY_TICK && aliveAPCount < AP_LIMIT)
+        if(APList.Count >= AP_LIMIT && apDelayTick++ < AP_DELAY_TICK && aliveAPCount < AP_LIMIT)
         {
             apDelayTick = 0;
             while(!APSet(UnityEngine.Random.Range(0, apObjs.Length)));
@@ -95,6 +89,7 @@ public class GameManager : MonoBehaviour
         APList[apObjs[idx]] = true;
         apObjs[idx].APSet(true);
         aliveAPCount++;
+        Debug.Log("AP On");
         return true;
     }
 
