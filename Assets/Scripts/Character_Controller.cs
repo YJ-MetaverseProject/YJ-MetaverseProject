@@ -227,6 +227,15 @@ public class Character_Controller : MonoBehaviour
                     bool isAP = ap.APReader(); // APReader() 메서드 호출
                     Debug.Log("끼얏호우"); // WA!!
                 }
+                else
+                {
+                    ap = hit.collider.transform.parent.GetComponent<AbnomalPhenomenon>();
+                    if(ap != null)
+                    {
+                        bool isAP = ap.APReader(); // APReader() 메서드 호출
+                        Debug.Log("끼얏호우"); // WA!!
+                    }
+                }
             }
         }
     }
