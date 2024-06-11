@@ -225,7 +225,7 @@ public class Character_Controller : MonoBehaviour
                 if (ap != null)
                 {
                     bool isAP = ap.APReader(); // APReader() 메서드 호출
-                    Debug.Log("끼얏호우");
+                    Debug.Log("끼얏호우"); // WA!!
                 }
             }
         }
