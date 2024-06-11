@@ -21,11 +21,7 @@ public class Game_Start : MonoBehaviour
 
     void Update()
     {
-        if (timer.second == 20) // 20���϶� ������� ����
-        {
-            warning_text.SetActive(true);
-
-        }
+        waring_text();
 
         StartGame();
     }
@@ -47,7 +43,14 @@ public class Game_Start : MonoBehaviour
         }
     }
           
+    public void waring_text()
+    {
+        if (timer.second == 20 && !game_start_bool) //20초가 지나고 게임이 시작하지 않았을경우
+        {
+            warning_text.SetActive(true);
 
+        }
+    }
     public void Player_Random_Spawn()
     {
         int randomIndex = Random.Range(0, Random_Spawn_points.Length);

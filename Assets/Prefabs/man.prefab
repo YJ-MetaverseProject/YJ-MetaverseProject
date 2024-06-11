@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 6834215674391882728}
-  f_MoveSpeed: 3
-  f_RunSpeed: 3
+  f_MoveSpeed: 2
+  f_RunSpeed: 2
   f_RotateSpeed: 5
   isMicOn: 0
   obj_Rotate_Horizontal: {fileID: 697785503197186243}
