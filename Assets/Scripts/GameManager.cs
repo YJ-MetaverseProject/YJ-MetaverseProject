@@ -57,10 +57,17 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator TimeTick() //틱탕 오브젝트 바뀌는기능
     {
+        int temp = 0;
+        while(temp > 6)
+        {
+            yield return new WaitUntil(() => !isGamePause );
+            yield return new WaitForSeconds(TIME_TICK);
+            temp++;
+        }
         while(isGameStart)
         {
+            yield return new WaitUntil(() => !isGamePause);
             yield return new WaitForSeconds(TIME_TICK);
-            // yield return new WaitUntil(() => !isGamePause);
             TickUpdate();
         }
     }
