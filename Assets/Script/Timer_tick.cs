@@ -8,7 +8,7 @@ public class Timer_tick : MonoBehaviour
 {
     [SerializeField] private TMP_Text time_text;
     [SerializeField] private float tick = 5.0f;
-    [SerializeField] private int minute;
+    public int minute;
     public int second;
     [SerializeField] private bool isTimerRunning = false;
 

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Game_Start : MonoBehaviour
@@ -5,24 +6,21 @@ public class Game_Start : MonoBehaviour
     public GameObject Player;
     public GameObject map_light;
     public Timer_tick timer;
-    public GameObject warning_text;
-    private bool game_start_bool = false;
+    public bool game_start_bool = false;
+    public GameManager gameManager;
 
     [Header("플레이어 스폰 포인트")]
-    [SerializeField] private GameObject tutorial_Spawn_point;
+    public GameObject tutorial_Spawn_point;
     [SerializeField] private GameObject[] Random_Spawn_points;
 
     void Start()
     {
-        // Player.transform.position = tutorial_Spawn_point.transform.position;
-        map_light.SetActive(true);
-        warning_text.SetActive(false);
+        TutorialSpawn();//게임 시작시 튜토리얼에 스폰하고
+        map_light.SetActive(true); //맵에 불 켜지고
     }
 
     void Update()
     {
-        waring_text();
-
         StartGame();
     }
 
@@ -33,28 +31,34 @@ public class Game_Start : MonoBehaviour
 
     void StartGame()
     {
-        if (!game_start_bool && timer.second == 30)
+        if (!game_start_bool && timer.second == 30) //만약 30초 되면 게임 시작
         {
             game_start_bool = true;
             map_light.SetActive(false);
-            warning_text.SetActive(false);
 
             Player_Random_Spawn();
-        }
-    }
-          
-    public void waring_text()
-    {
-        if (timer.second == 20 && !game_start_bool) //20초가 지나고 게임이 시작하지 않았을경우
-        {
-            warning_text.SetActive(true);
-
         }
     }
     public void Player_Random_Spawn()
     {
         int randomIndex = Random.Range(0, Random_Spawn_points.Length);
         Player.transform.position = Random_Spawn_points[randomIndex].transform.position;
-        Debug.Log("�÷��̾� ��ġ " + randomIndex + " �� �̵�");
     }
+
+    public void End_Game()
+    {
+        if (timer.minute == 6) //시간이 6분이 되면
+        {
+            Player.transform.position = tutorial_Spawn_point.transform.position; //다시 튜토리얼룸으로 옮기고
+            Warning_text_manager.single.end_game_ment();
+
+        }
+        else if (timer.minute < 6 && gameManager.aliveAPCount > 10)//시간이 6분보다 작고 alive카운트가 10보다 커지면
+        {
+            Player.transform.position = tutorial_Spawn_point.transform.position; //다시 튜토리얼룸으로 옮기고
+            Warning_text_manager.single.lose_game_ment();
+
+        }
+    }
+
 }

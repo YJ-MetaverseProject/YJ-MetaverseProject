@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Photon.Pun.Demo.Cockpit;
 using Photon.Voice.PUN;
 using Photon.Voice.Unity;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager gameManager;
+    public Timer_tick timer_Tick;
     public static GameManager Instance { get => gameManager; }
 
     public const int TIME_TICK = 5;
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
     public static bool isGameStart;
     public static bool isGamePause;
 
-    private int aliveAPCount; // 탈락카운트 값
+    public int aliveAPCount; // 탈락카운트 값
     private int apDelayTick;
 
     public GameObject text;
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     private bool isMicOn;
     public bool IsMicOn { set { isMicOn = value;  GetComponent<Recorder>().TransmitEnabled = isMicOn; } }
+
+
 
     public void SetVoice(GameObject gameObject)
     {
@@ -82,7 +86,7 @@ public class GameManager : MonoBehaviour
     }
 
     // false : 활성화 실패, true : 활성화 성공
-    private bool APSet(int idx) // 이상현상이 
+    private bool APSet(int idx) // 이상현상이 생성되면 alive카운트 ++
     {
         if(APList.Count > 0 || APList[apObjs[idx]]) return false;
         APList[apObjs[idx]] = true;
@@ -91,9 +95,11 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    public void APFound(AbnomalPhenomenon ap)
+    public void APFound(AbnomalPhenomenon ap) //이상현상 찾으면 alive카운트 감소
     {
         aliveAPCount--;
         APList[ap] = false;
     }
+
+  
 }
