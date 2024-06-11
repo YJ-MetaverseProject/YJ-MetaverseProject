@@ -34,8 +34,7 @@ public class Character_Controller : MonoBehaviour
     public Collider nearObj;
 
     public Transform cameraTransform;
-
-    Door door;
+    
 
     private void Start()
     {
@@ -166,7 +165,6 @@ public class Character_Controller : MonoBehaviour
     public void character_ray_shot()
     {
         if (Input.GetMouseButtonDown(0))
-
         {
             GameObject otherCameraObj = GameObject.FindGameObjectWithTag("ViewCamera"); // 다른 카메라를 태그로 찾음
 
@@ -177,12 +175,13 @@ public class Character_Controller : MonoBehaviour
 
             RaycastHit hit;
 
+            // Raycast 거리를 Gizmos 구의 반지름 내로 조정합니다.
+            float raycastDistance = radius; // Gizmos 구의 반지름 사용
 
-
-            if (Physics.Raycast(ray, out hit, 5f))
+            if (Physics.Raycast(ray, out hit, raycastDistance))
             {
                 print("raycast hit!");
-                Debug.DrawRay(ray.origin, ray.direction * 20, Color.red, 5f);
+                Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 5f);
                 Debug.Log(hit.collider.gameObject.name);
 
                 // 충돌한 객체가 버튼이라면
@@ -196,25 +195,24 @@ public class Character_Controller : MonoBehaviour
                     {
                         button.onClick.Invoke();
                         Debug.Log("해당 버튼 코드 실행");
-
                     }
                 }
-                //충돌한 객체가 Door라면
+                // 충돌한 객체가 Door라면
                 if (hit.collider.CompareTag("Door"))
                 {
-                    //Door 코드 실행
+                    // Door 코드 실행
                     Door door = hit.collider.GetComponent<Door>();
-                    //door값이 null이 아닐 때
+                    // door 값이 null이 아닐 때
                     if (door != null)
                     {
                         Debug.Log(door.DoorState);
-                        //door의 상태가 false면 true로 바꾸면서 문이 열림
+                        // door의 상태가 false면 true로 바꾸면서 문이 열림
                         if (!door.DoorState)
                         {
                             door.Open();
                             Debug.Log("문이 열림");
                         }
-                        //door의 상태가 true false로 바꾸면서 문이 열림
+                        // door의 상태가 true면 false로 바꾸면서 문이 닫힘
                         else
                         {
                             door.Close();
@@ -222,9 +220,14 @@ public class Character_Controller : MonoBehaviour
                         }
                     }
                 }
-
+                // 충돌한 객체가 Error 태그를 가지고 있다면
+                if (hit.collider.CompareTag("Error"))
+                {
+                    // 이상현상 값을 감소시킵니다.
+                    GameManager.Instance.APFound(hit.collider.GetComponent<AbnomalPhenomenon>());
+                    Debug.Log("Error 태그를 가진 오브젝트를 맞춤. 이상현상 -1.");
+                }
             }
-
         }
     }
 }

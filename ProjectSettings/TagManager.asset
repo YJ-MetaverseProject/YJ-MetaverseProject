@@ -13,6 +13,7 @@ TagManager:
   - CinemachineTarget
   - Button
   - Door
+  - DoubleDoor
   layers:
   - Default
   - TransparentFX
