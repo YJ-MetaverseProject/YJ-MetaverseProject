@@ -11017,7 +11017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab505898b67f734bbc6fab94a216abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer_Tick: {fileID: 0}
   apObjs: []
   aliveAPCount: 0
   text: {fileID: 1678763688}
