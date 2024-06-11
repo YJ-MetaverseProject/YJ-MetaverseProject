@@ -29,7 +29,6 @@ public class Warning_text_manager : MonoBehaviour
     private void Update()
     {
         game_start_text();
-        warning_ment();
     }
 
     public void game_start_text()
