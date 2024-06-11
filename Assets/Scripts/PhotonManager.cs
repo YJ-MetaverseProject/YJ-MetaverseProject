@@ -73,4 +73,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.DestroyPlayerObjects(player);
     }
+
+    //public override void OnLeftRoom()
+    //{
+    //    RoomOptions options = new RoomOptions();
+    //    options.PublishUserId = true;
+    //    options.MaxPlayers = 5;
+    //    PhotonNetwork.JoinOrCreateRoom("TEST", options, TypedLobby.Default);
+    //}
 }

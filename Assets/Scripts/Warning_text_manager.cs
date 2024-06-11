@@ -35,7 +35,7 @@ public class Warning_text_manager : MonoBehaviour
     {
         if (timer.second == 20 && !game_Start.game_start_bool && !hasShownGameStartText) //20초가 지나고 게임이 시작하지 않았을경우
         {
-            warning_text.GetComponent<TMP_Text>().text = "게임이 곧 시작됩니다.\n랜덤한 위치에 스폰됩니다.";
+            warning_text.GetComponent<TMP_Text>().text = "게임이 곧 시작됩니다.\n랜덤한 위치에 스폰됩니다";
             StartCoroutine(ShowWarningText());
             hasShownGameStartText = true;
         }
@@ -58,7 +58,13 @@ public class Warning_text_manager : MonoBehaviour
 
     public void lose_game_ment()
     {
-        warning_text.GetComponent<TMP_Text>().text = "게임에서 탈락하셨습니다.";
+        warning_text.GetComponent<TMP_Text>().text = "게임에서 탈락하셨습니다";
+        StartCoroutine(ShowWarningText());
+    }
+
+    public void restart_ment()
+    {
+        warning_text.GetComponent<TMP_Text>().text = "게임을 다시 시작합니다";
         StartCoroutine(ShowWarningText());
     }
 
