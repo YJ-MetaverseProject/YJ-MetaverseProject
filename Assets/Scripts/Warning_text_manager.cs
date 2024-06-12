@@ -10,6 +10,7 @@ public class Warning_text_manager : MonoBehaviour
     public GameObject warning_text;
     public Game_Start game_Start;
     public GameManager GameManager;
+    public TMP_Text apCountText; // 추가된 텍스트 요소
 
     private CanvasGroup canvasGroup;
     public float fadeDuration = 0.5f; // 페이드 인/아웃 시간
@@ -24,6 +25,9 @@ public class Warning_text_manager : MonoBehaviour
         }
         canvasGroup.alpha = 0f;
         warning_text.SetActive(false);
+
+        // AP Count 텍스트 업데이트를 위한 코루틴 시작
+        StartCoroutine(UpdateAPCountText());
     }
 
     private void Update()
@@ -99,5 +103,14 @@ public class Warning_text_manager : MonoBehaviour
             yield return null;
         }
         canvasGroup.alpha = 0f;
+    }
+
+    private IEnumerator UpdateAPCountText()
+    {
+        while (true)
+        {
+            apCountText.text = $"AP Count : {GameManager.aliveAPCount}";
+            yield return new WaitForSeconds(1.0f); // 1초마다 업데이트
+        }
     }
 }
