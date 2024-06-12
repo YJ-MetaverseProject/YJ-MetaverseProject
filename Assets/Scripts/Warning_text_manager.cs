@@ -48,7 +48,7 @@ public class Warning_text_manager : MonoBehaviour
             hasShownGameStartText = true;
         }
 
-        if (GameManager.aliveAPCount >= 7 && timer.second >= 20 && !hasShownWarningImage)
+        if (GameManager.aliveAPCount >= 7 && !hasShownWarningImage)
         {
             StartCoroutine(ShowWarningImageRepeatedly());
             hasShownWarningImage = true; // 이미지가 띄워진 후에는 다시 띄우지 않도록 플래그 설정
