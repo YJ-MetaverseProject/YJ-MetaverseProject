@@ -35,6 +35,10 @@ public class Character_Controller : MonoBehaviour
 
     public Transform cameraTransform;
 
+    // Shift 키 입력을 무시할 시간
+    private float shiftBlockTime = 5f;
+    private float shiftBlockEndTime;
+
     //이상현상을 체크했는데 아니여서 실패했을 경우
     //제대로 체크한 코드는 게임매니저 쪽에 있음
     //이놈은 왜 여깄냐고? 그냥
@@ -47,7 +51,7 @@ public class Character_Controller : MonoBehaviour
 
         OnText = GameManager.Instance.text;
 
-        if(GetComponent<PhotonView>().IsMine)
+        if (GetComponent<PhotonView>().IsMine)
         {
             cameraTransform.gameObject.SetActive(true);
             GameManager.Instance.SetVoice(gameObject);
@@ -71,16 +75,15 @@ public class Character_Controller : MonoBehaviour
 
     private void Update()
     {
-        if(!GetComponent<PhotonView>().IsMine) return;
+        if (!GetComponent<PhotonView>().IsMine) return;
 
-        if(Input.GetButtonDown("Mic")) 
+        if (Input.GetButtonDown("Mic"))
         {
             isMicOn = !isMicOn;
             GameManager.Instance.IsMicOn = isMicOn;
         }
 
         character_ray_shot();
-
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -111,18 +114,25 @@ public class Character_Controller : MonoBehaviour
     {
         if (GetComponent<PhotonView>().IsMine)
         {
-
             float pos_x = Input.GetAxis("Horizontal");
             float pos_z = Input.GetAxis("Vertical");
 
-            // Run ON&OFF
-            if (Input.GetKey(KeyCode.LeftShift))
+            // Shift 키가 막혀있는 동안에는 Run 설정하지 않음
+            if (Time.time < shiftBlockEndTime)
             {
-                m_Animator.SetBool("Run", true);
+                m_Animator.SetBool("Run", false);
             }
             else
             {
-                m_Animator.SetBool("Run", false);
+                // Run ON&OFF
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    m_Animator.SetBool("Run", true);
+                }
+                else
+                {
+                    m_Animator.SetBool("Run", false);
+                }
             }
 
             // Camera 방향으로 이동
@@ -150,11 +160,6 @@ public class Character_Controller : MonoBehaviour
             {
                 m_Animator.SetBool("Walk", false);
             }
-
-            // if (Input.GetKeyDown(KeyCode.Space))
-            // {
-            //     m_Animator.SetTrigger("Jump");
-            // }
         }
     }
 
@@ -184,7 +189,7 @@ public class Character_Controller : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, raycastDistance))
             {
-                print("raycast hit!");
+                Debug.Log("raycast hit!");
                 Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 5f);
                 Debug.Log(hit.collider.gameObject.name);
 
@@ -225,37 +230,20 @@ public class Character_Controller : MonoBehaviour
                     }
                 }
 
-                //체크했는데 이상현상이 맞는경우
-                // 충돌한 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있는 경우
+                // 이상현상 체크 실패 시 달리기 기능을 5초 동안 막음
                 AbnomalPhenomenon ap = hit.collider.GetComponent<AbnomalPhenomenon>();
+                if (ap == null)
+                {
+                    ap = hit.collider.transform.parent.GetComponent<AbnomalPhenomenon>();
+                }
 
-                // ap가 null이 아닌 경우, 즉 충돌한 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있을 때
                 if (ap != null)
                 {
-                    // APReader() 메서드를 호출하여 결과를 isAP 변수에 저장
                     bool isAP = ap.APReader();
-                    //성공한 값 1씩 증가
-                    Debug.Log("이상현상 체크 성공");
+                    abcheck_fail_count++;
+                    shiftBlockEndTime = Time.time + shiftBlockTime; // 달리기 기능을 5초 동안 막음
+                    Debug.Log("이상현상 체크 실패");
                 }
-
-                //여기가 이상현상인줄 알고 체크했는데 아닌경우
-                else // ap가 null인 경우, 즉 충돌한 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있지 않을 때
-                {
-                    // 충돌한 객체의 부모 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있는지 확인
-                    ap = hit.collider.transform.parent.GetComponent<AbnomalPhenomenon>();
-
-                    // 부모 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있을 때
-                    if (ap != null)
-                    {
-                        // APReader() 메서드를 호출하여 결과를 isAP 변수에 저장
-                        bool isAP = ap.APReader();
-                        //실패한 값 1씩 증가
-                        abcheck_fail_count++;
-                        // "끼얏호우"라는 메시지를 콘솔에 출력
-                        Debug.Log("이상현상 체크실패");
-                    }
-                }
-
             }
         }
     }

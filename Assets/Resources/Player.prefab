@@ -2281,7 +2281,6 @@ MonoBehaviour:
   OnText: {fileID: 0}
   nearObj: {fileID: 0}
   cameraTransform: {fileID: 770533823620297657}
-  abcheck_success_count: 0
   abcheck_fail_count: 0
 --- !u!114 &7505473057970165777
 MonoBehaviour:
