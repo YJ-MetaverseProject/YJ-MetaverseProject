@@ -9,7 +9,7 @@ public class Warning_text_manager : MonoBehaviour
     private static Warning_text_manager _instance;
     public static Warning_text_manager Instance { get { return _instance; } }
 
-    // 나머지 필드들은 여기에 있습니다
+    // 필드들
     public Timer_tick timer;
     public GameObject warning_text;
     public Game_Start game_Start;
@@ -69,7 +69,7 @@ public class Warning_text_manager : MonoBehaviour
 
         if (GameManager.aliveAPCount >= 7 && !hasShownWarningImage)
         {
-            StartCoroutine(ShowWarningImageRepeatedly());
+            StartCoroutine(ShowWarningImageOnce());
             hasShownWarningImage = true;
         }
     }
@@ -139,19 +139,14 @@ public class Warning_text_manager : MonoBehaviour
         while (true)
         {
             apCountText.text = $"현재 이상현상 수: {GameManager.aliveAPCount}";
-            yield return new WaitForSeconds(0.5f); // 0.5초마다 업데이트
+            yield return new WaitForSeconds(0.3f); // 0.3초마다 업데이트
         }
     }
 
-    private IEnumerator ShowWarningImageRepeatedly()
+    private IEnumerator ShowWarningImageOnce()
     {
-        for (int i = 0; i < warningDisplayCount; i++)
-        {
-            warningImage.gameObject.SetActive(true);
-            yield return new WaitForSeconds(warningDisplayDuration);
-            warningImage.gameObject.SetActive(false);
-            if (i < warningDisplayCount - 1) // 마지막 사진 이후에는 기다리지 않음
-                yield return new WaitForSeconds(3.0f); // 3초 간격으로 사진을 띄움
-        }
+        warningImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(warningDisplayDuration);
+        warningImage.gameObject.SetActive(false);
     }
 }
