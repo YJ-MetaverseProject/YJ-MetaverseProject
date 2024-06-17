@@ -34,7 +34,11 @@ public class Character_Controller : MonoBehaviour
     public Collider nearObj;
 
     public Transform cameraTransform;
-    
+
+    //이상현상을 체크했는데 아니여서 실패했을 경우
+    //제대로 체크한 코드는 게임매니저 쪽에 있음
+    //이놈은 왜 여깄냐고? 그냥
+    public int abcheck_fail_count;
 
     private void Start()
     {
@@ -220,22 +224,38 @@ public class Character_Controller : MonoBehaviour
                         }
                     }
                 }
+
+                //체크했는데 이상현상이 맞는경우
                 // 충돌한 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있는 경우
                 AbnomalPhenomenon ap = hit.collider.GetComponent<AbnomalPhenomenon>();
+
+                // ap가 null이 아닌 경우, 즉 충돌한 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있을 때
                 if (ap != null)
                 {
-                    bool isAP = ap.APReader(); // APReader() 메서드 호출
-                    Debug.Log("끼얏호우"); // WA!!
+                    // APReader() 메서드를 호출하여 결과를 isAP 변수에 저장
+                    bool isAP = ap.APReader();
+                    //성공한 값 1씩 증가
+                    Debug.Log("이상현상 체크 성공");
                 }
-                else
+
+                //여기가 이상현상인줄 알고 체크했는데 아닌경우
+                else // ap가 null인 경우, 즉 충돌한 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있지 않을 때
                 {
+                    // 충돌한 객체의 부모 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있는지 확인
                     ap = hit.collider.transform.parent.GetComponent<AbnomalPhenomenon>();
-                    if(ap != null)
+
+                    // 부모 객체가 AbnomalPhenomenon 컴포넌트를 가지고 있을 때
+                    if (ap != null)
                     {
-                        bool isAP = ap.APReader(); // APReader() 메서드 호출
-                        Debug.Log("끼얏호우"); // WA!!
+                        // APReader() 메서드를 호출하여 결과를 isAP 변수에 저장
+                        bool isAP = ap.APReader();
+                        //실패한 값 1씩 증가
+                        abcheck_fail_count++;
+                        // "끼얏호우"라는 메시지를 콘솔에 출력
+                        Debug.Log("이상현상 체크실패");
                     }
                 }
+
             }
         }
     }

@@ -11,11 +11,7 @@ public class MouseMove : MonoBehaviour
     public Transform playerBody; // �÷��̾��� Transform ���� �߰�
     public Transform flTf;
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
     // Update is called once per frame
     void Update()

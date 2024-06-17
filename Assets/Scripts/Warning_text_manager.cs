@@ -5,23 +5,42 @@ using UnityEngine.UI;
 
 public class Warning_text_manager : MonoBehaviour
 {
-    public static Warning_text_manager single;
+    // 싱글톤 인스턴스
+    private static Warning_text_manager _instance;
+    public static Warning_text_manager Instance { get { return _instance; } }
+
+    // 나머지 필드들은 여기에 있습니다
     public Timer_tick timer;
     public GameObject warning_text;
     public Game_Start game_Start;
     public GameManager GameManager;
-    public TMP_Text apCountText; // 추가된 텍스트 요소
-    public Image warningImage; // 추가된 이미지 요소
-    public float warningDisplayDuration = 2.0f; // 경고 이미지 표시 기간
-    public int warningDisplayCount = 3; // 경고 이미지 표시 횟수
+    public TMP_Text apCountText;
+    public Image warningImage;
+    public float warningDisplayDuration = 2.0f;
+    public int warningDisplayCount = 3;
 
     private CanvasGroup canvasGroup;
-    public float fadeDuration = 0.5f; // 페이드 인/아웃 시간
+    public float fadeDuration = 0.5f;
     private bool hasShownGameStartText = false;
-    private bool hasShownWarningImage = false; // 이미지가 띄워졌는지 여부를 나타내는 플래그
+    private bool hasShownWarningImage = false;
 
-    private void Start()
+    private void Awake()
     {
+        // 인스턴스가 설정되지 않았다면 현재 객체를 할당합니다
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            // 이미 다른 인스턴스가 존재한다면 자신을 파괴합니다
+            Destroy(gameObject);
+        }
+
+        // 다른 객체에서 싱글톤을 참조할 때 파괴되지 않도록 설정합니다
+        DontDestroyOnLoad(gameObject);
+
+        // CanvasGroup을 초기화합니다
         canvasGroup = warning_text.GetComponent<CanvasGroup>();
         if (canvasGroup == null)
         {
@@ -51,7 +70,7 @@ public class Warning_text_manager : MonoBehaviour
         if (GameManager.aliveAPCount >= 7 && !hasShownWarningImage)
         {
             StartCoroutine(ShowWarningImageRepeatedly());
-            hasShownWarningImage = true; // 이미지가 띄워진 후에는 다시 띄우지 않도록 플래그 설정
+            hasShownWarningImage = true;
         }
     }
 
@@ -64,7 +83,7 @@ public class Warning_text_manager : MonoBehaviour
         }
     }
 
-    public void end_game_ment() //게임 탈락 및 클리어
+    public void end_game_ment()
     {
         warning_text.GetComponent<TMP_Text>().text = "게임이 종료되었습니다";
         StartCoroutine(ShowWarningText());

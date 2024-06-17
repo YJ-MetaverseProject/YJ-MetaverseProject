@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     public int aliveAPCount; // 탈락카운트 값
     private int apDelayTick;
+    public int abcheck_success_count;
 
     public GameObject text;
     public Game_Start game_Start;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         foreach(var ap in apObjs) APList.Add(ap, false);
         game_Start = GetComponent<Game_Start>();
         GetComponent<Recorder>().TransmitEnabled = false;
+        abcheck_success_count = 0; //한번 초기화
     }
 
     public void Start() => GameSet();
@@ -54,11 +56,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator TimeTick() //틱탕 오브젝트 바뀌는기능
     {
         yield return new WaitUntil(() => GetComponent<Game_Start>().game_start_bool );
-        while(APList.Count >= AP_LIMIT && AP_LIMIT/2 > aliveAPCount)
-        {
-            var tempObj = UnityEngine.Random.Range(0, apObjs.Length);
-            if(!APSet(tempObj)) continue;
-        }
+        //while(APList.Count >= AP_LIMIT && AP_LIMIT/2 > aliveAPCount)
+        //{
+        //    var tempObj = UnityEngine.Random.Range(0, apObjs.Length);
+        //    if(!APSet(tempObj)) continue;
+        //}
         while(isGameStart)
         {
             yield return new WaitUntil(() => !isGamePause);
@@ -96,6 +98,8 @@ public class GameManager : MonoBehaviour
     public void APFound(AbnomalPhenomenon ap)
     {
         aliveAPCount--;
+        abcheck_success_count++;
+
         APList[ap] = false;
     }
 }
