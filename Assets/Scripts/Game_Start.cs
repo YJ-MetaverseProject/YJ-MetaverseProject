@@ -22,6 +22,9 @@ public class Game_Start : MonoBehaviour
 
     private bool endGameExecuted = false; // 게임 종료 처리가 한 번만 실행되도록 제어하는 변수
 
+    [SerializeField] private GameObject mainmap;
+    [SerializeField] private GameObject tutorialroom;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -39,6 +42,8 @@ public class Game_Start : MonoBehaviour
         TutorialSpawn();
         map_light.SetActive(true);
         game_end_check = false;
+        mainmap.SetActive(false);
+        tutorialroom.SetActive(true);
     }
 
     void Update()
@@ -68,6 +73,7 @@ public class Game_Start : MonoBehaviour
     {
         if (!game_start_bool && timer.second == 30)
         {
+
             timer.ResetTimer();// 시간 리셋해주고
             game_start_bool = true;
             map_light.SetActive(false);
@@ -77,6 +83,8 @@ public class Game_Start : MonoBehaviour
 
     public void Player_Random_Spawn()
     {
+        mainmap.SetActive(true);
+        tutorialroom.SetActive(false);
         int randomIndex = Random.Range(0, Random_Spawn_points.Length);
         Player.transform.position = Random_Spawn_points[randomIndex].transform.position;
     }
@@ -93,6 +101,8 @@ public class Game_Start : MonoBehaviour
 
             if (timer.minute == 6)
             {
+                mainmap.SetActive(false);
+                tutorialroom.SetActive(true);
                 timer.StopTimer();
                 Player.transform.position = tutorial_Spawn_point.transform.position;
                 Warning_text_manager.Instance.end_game_ment();
@@ -101,6 +111,8 @@ public class Game_Start : MonoBehaviour
             }
             else if (timer.minute < 6 && gameManager.aliveAPCount >= 10)
             {
+                mainmap.SetActive(false);
+                tutorialroom.SetActive(true);
                 timer.StopTimer();
                 Player.transform.position = tutorial_Spawn_point.transform.position;
                 Warning_text_manager.Instance.lose_game_ment();

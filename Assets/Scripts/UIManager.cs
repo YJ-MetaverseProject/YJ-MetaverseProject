@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         Default_ESCUI();
+        MouseLock();
     }
 
     private void Update()
@@ -46,12 +47,16 @@ public class UIManager : MonoBehaviour
         {
             option_Background.SetActive(false);
             aim.SetActive(true);
+            Time.timeScale = 1;
+            MouseLock();
         }
         else if(option_Background.activeSelf == false)
         {
             option_Background.SetActive(true);
             Default_ESCUI();
             aim.SetActive(false);
+            Time.timeScale = 0;
+            MouseUnlock();
         }
     }
     private void Input_Manual()
@@ -107,9 +112,9 @@ public class UIManager : MonoBehaviour
         setting_text.SetActive(false);
         quit_popup.SetActive(true);
     }
-    public void YesBtn()
+    public void QuitYesBtn()
     {
-        //∞‘¿”≥°
+        Application.Quit();
     }
 
     public void Default_ESCUI()
@@ -122,5 +127,13 @@ public class UIManager : MonoBehaviour
         voice.SetActive(false);
         quit_popup.SetActive(false);
         back.SetActive(false);
+    }
+    public void MouseLock()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+    public void MouseUnlock()
+    {
+        Cursor.lockState = CursorLockMode.None;
     }
 }

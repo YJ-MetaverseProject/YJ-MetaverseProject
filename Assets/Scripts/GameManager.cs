@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private static GameManager gameManager;
     public static GameManager Instance { get => gameManager; }
 
-    public const int TIME_TICK = 5;
+    public const int TIME_TICK = 20;
     public const int AP_LIMIT = 10;
     public const int AP_DELAY_TICK = 1;
     // public const int AP_AMOUNT = 10; // 이거 왜 넣었지?
@@ -102,4 +102,6 @@ public class GameManager : MonoBehaviour
 
         APList[ap] = false;
     }
+    
+
 }

@@ -85,7 +85,7 @@ public class Character_Controller : MonoBehaviour
 
         character_ray_shot();
 
-        Cursor.lockState = CursorLockMode.Locked;
+
 
         Vector3 centerPosition = cameraTransform.position + cameraTransform.forward * radius; // 카메라 방향으로 수정
         colliders = Physics.OverlapSphere(centerPosition, radius, layer);
