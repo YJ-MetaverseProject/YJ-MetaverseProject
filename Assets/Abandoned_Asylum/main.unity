@@ -11681,9 +11681,7 @@ MonoBehaviour:
   timer: {fileID: 1056867572}
   game_start_bool: 0
   gameManager: {fileID: 1056867579}
-  character_Controller: {fileID: 0}
   result_text: {fileID: 1591014555}
-  game_end_check: 0
   tutorial_Spawn_point: {fileID: 1768667617}
   Random_Spawn_points:
   - {fileID: 786436253}
@@ -11854,6 +11852,7 @@ MonoBehaviour:
   - {fileID: 8606311150561899626}
   - {fileID: 8606311150561899625}
   aliveAPCount: 0
+  abcheck_success_count: 0
   text: {fileID: 1678763688}
   game_Start: {fileID: 1056867574}
 --- !u!1001 &1063939615
