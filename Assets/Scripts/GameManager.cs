@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
     {
         aliveAPCount--;
         abcheck_success_count++;
-
         APList[ap] = false;
     }
     

@@ -15,9 +15,11 @@ public class Warning_text_manager : MonoBehaviour
     public Game_Start game_Start;
     public GameManager GameManager;
     public TMP_Text apCountText;
+    public TMP_Text findCountText;
     public Image[] warningImages; // 경고 이미지를 여러 개 저장하는 배열
     public float warningDisplayDuration = 2.0f;
     public int warningDisplayCount = 3;
+
 
     private CanvasGroup canvasGroup;
     public float fadeDuration = 0.5f;
@@ -138,7 +140,8 @@ public class Warning_text_manager : MonoBehaviour
     {
         while (true)
         {
-            apCountText.text = $"현재 이상현상 수: {GameManager.aliveAPCount}";
+            apCountText.text = $"현재 이상현상 수 : {GameManager.aliveAPCount}";
+            findCountText.text = $"찾은 이상현상 수 : {GameManager.abcheck_success_count}";
             yield return new WaitForSeconds(0.3f); // 0.3초마다 업데이트
         }
     }
