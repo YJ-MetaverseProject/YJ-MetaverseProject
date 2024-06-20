@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject mic_off;
     [SerializeField] GameObject quitGame;
     [SerializeField] GameObject quit_popup;
+    [SerializeField] GameObject retryGame;
+    [SerializeField] GameObject retry_popup;
     [SerializeField] GameObject setting_text;
     [SerializeField] GameObject yes_Btn;
     [SerializeField] GameObject No_Btn;
@@ -94,6 +96,7 @@ public class UIManager : MonoBehaviour
         option.SetActive(true);
         voice.SetActive(false);
         quitGame.SetActive(false);
+        retryGame.SetActive(false);
         back.SetActive(true);
     }
     public void Voice_Btn()
@@ -101,6 +104,7 @@ public class UIManager : MonoBehaviour
         option.SetActive(false);
         voice.SetActive(true);
         quitGame.SetActive(false);
+        retryGame.SetActive(false);
         back.SetActive(true);
     }
 
@@ -110,6 +114,7 @@ public class UIManager : MonoBehaviour
         option_Btn.SetActive(false);
         quitGame.SetActive(false);
         setting_text.SetActive(false);
+        retryGame.SetActive(false);
         quit_popup.SetActive(true);
     }
     public void QuitYesBtn()
@@ -117,15 +122,32 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void RetryBtn()
+    {
+        voice_Btn.SetActive(false);
+        option_Btn.SetActive(false);
+        quitGame.SetActive(false);
+        retryGame.SetActive(false);
+        setting_text.SetActive(false);
+        retry_popup.SetActive(true);
+    }
+    public void RetryYesBtn()
+    {
+        PhotonManager.Instance.ReTry();
+    }
+
+
     public void Default_ESCUI()
     {
         setting_text.SetActive(true);
         voice_Btn.SetActive(true);
         option_Btn.SetActive(true);
         quitGame.SetActive(true);
+        retryGame.SetActive(true);
         option.SetActive(false);
         voice.SetActive(false);
         quit_popup.SetActive(false);
+        retry_popup.SetActive(false);
         back.SetActive(false);
     }
     public void MouseLock()

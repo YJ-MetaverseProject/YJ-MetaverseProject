@@ -39,7 +39,7 @@ public class Game_Start : MonoBehaviour
 
     void Start()
     {
-        TutorialSpawn();
+        // TutorialSpawn();
         map_light.SetActive(true);
         game_end_check = false;
         mainmap.SetActive(false);

@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using Photon.Pun.Demo.PunBasics;
+using UnityEngine.SceneManagement;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
+    private static PhotonManager photonManager;
+    public static PhotonManager Instance { get => photonManager; }
+
     public GameObject playerPrefab;
-    public GameObject otherPrefab;
 
     public DefaultPool defaultPool;
+
+    public GameObject[] managerObjs;
 
     private void Awake()
     {
@@ -18,11 +24,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         pool.ResourceCache.Clear();
         pool.ResourceCache.Add("Player", playerPrefab);
         PhotonNetwork.ConnectUsingSettings();
-    }
-
-    private void Start()
-    {
-        
+        PhotonNetwork.AutomaticallySyncScene = false;
+        if (photonManager != null && photonManager != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        photonManager = this;
     }
 
     public override void OnConnectedToMaster()
@@ -74,11 +82,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.DestroyPlayerObjects(player);
     }
 
-    //public override void OnLeftRoom()
-    //{
-    //    RoomOptions options = new RoomOptions();
-    //    options.PublishUserId = true;
-    //    options.MaxPlayers = 5;
-    //    PhotonNetwork.JoinOrCreateRoom("TEST", options, TypedLobby.Default);
-    //}
+    public void ReTry()
+    { 
+        Remove_Player(PhotonNetwork.LocalPlayer);
+        foreach(var go in managerObjs) SceneManager.MoveGameObjectToScene(go, SceneManager.GetActiveScene());
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel("main");
+    }
 }
