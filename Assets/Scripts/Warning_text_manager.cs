@@ -15,7 +15,7 @@ public class Warning_text_manager : MonoBehaviour
     public Game_Start game_Start;
     public GameManager GameManager;
     public TMP_Text apCountText;
-    public Image warningImage;
+    public Image[] warningImages; // 경고 이미지를 여러 개 저장하는 배열
     public float warningDisplayDuration = 2.0f;
     public int warningDisplayCount = 3;
 
@@ -145,8 +145,10 @@ public class Warning_text_manager : MonoBehaviour
 
     private IEnumerator ShowWarningImageOnce()
     {
-        warningImage.gameObject.SetActive(true);
+        int randomIndex = Random.Range(0, warningImages.Length); // 배열에서 랜덤 인덱스 선택
+        Image selectedImage = warningImages[randomIndex]; // 랜덤 인덱스의 이미지 선택
+        selectedImage.gameObject.SetActive(true); // 선택된 이미지 활성화
         yield return new WaitForSeconds(warningDisplayDuration);
-        warningImage.gameObject.SetActive(false);
+        selectedImage.gameObject.SetActive(false); // 선택된 이미지 비활성화
     }
 }
