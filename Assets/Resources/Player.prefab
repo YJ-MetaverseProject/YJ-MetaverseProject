@@ -2265,7 +2265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 4369930327366801137}
   f_MoveSpeed: 3
-  f_RunSpeed: 1.5
+  f_RunSpeed: 1.8
   f_RotateSpeed: 5
   isMicOn: 0
   obj_Rotate_Horizontal: {fileID: 6476800654034570886}
