@@ -91,6 +91,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         ao.completed += (x) => {
             var loadao = SceneManager.LoadSceneAsync("main");
             loadao.completed += (x) => {
+                Time.timeScale = 1;
                 Create_Player();
                 GameManager.Instance.game_Start.Player = go;
                 GameManager.Instance.game_Start.TutorialSpawn();
