@@ -8,7 +8,7 @@ public class MouseMove : MonoBehaviour
     public float sesitivity = 500f;
     public float rotationX;
     public float rotationY;
-    public Transform playerBody; // �÷��̾��� Transform ���� �߰�
+    public Transform playerBody;
     public Transform flTf;
 
 
@@ -30,8 +30,8 @@ public class MouseMove : MonoBehaviour
             rotationX = -70f;
         }
 
-        playerBody.eulerAngles = new Vector3(0, rotationY, 0); // �÷��̾��� ȸ���� ī�޶��� ȸ���� ��ġ��Ŵ
+        playerBody.eulerAngles = new Vector3(0, rotationY, 0); 
         transform.eulerAngles = new Vector3(-rotationX, playerBody.eulerAngles.y, 0);
-        flTf.eulerAngles = new Vector3(-rotationX, playerBody.eulerAngles.y, 0); // �÷��̾��� ȸ���� ī�޶��� ȸ���� ��ġ��Ŵ
+        flTf.eulerAngles = new Vector3(-rotationX, playerBody.eulerAngles.y, 0);
     }
 }
