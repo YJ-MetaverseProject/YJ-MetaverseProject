@@ -19,18 +19,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        if (photonManager != null && photonManager != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+        photonManager = this;
         DefaultPool pool = new DefaultPool();
         defaultPool = pool;
         pool.ResourceCache.Clear();
         pool.ResourceCache.Add("Player", playerPrefab);
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.AutomaticallySyncScene = false;
-        if (photonManager != null && photonManager != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        photonManager = this;
     }
 
     public override void OnConnectedToMaster()
@@ -84,9 +85,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void ReTry()
     { 
-        Remove_Player(PhotonNetwork.LocalPlayer);
         foreach(var go in managerObjs) SceneManager.MoveGameObjectToScene(go, SceneManager.GetActiveScene());
-        PhotonNetwork.Disconnect();
-        PhotonNetwork.LoadLevel("main");
+        SceneManager.CreateScene("Temp");
+        var ao = SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(0));
+        ao.completed += (x) => {
+            var loadao = SceneManager.LoadSceneAsync("main");
+            loadao.completed += (x) => {
+                Create_Player();
+                GameManager.Instance.game_Start.Player = go;
+                GameManager.Instance.game_Start.TutorialSpawn();
+            };
+        };
     }
 }
