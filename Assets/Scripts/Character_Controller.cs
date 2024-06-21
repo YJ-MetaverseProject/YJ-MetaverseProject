@@ -102,11 +102,6 @@ public class Character_Controller : MonoBehaviour
                     nearObj = col;
                 }
             }
-            OnText.SetActive(true);
-        }
-        else
-        {
-            OnText.SetActive(false);
         }
     }
 
